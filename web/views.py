@@ -51,7 +51,6 @@ def signup(request):
 
 def index(request):
     # return HttpResponseRedirect('')
-    print('hello')
     return render(request, 'index.html', {})
 
 
