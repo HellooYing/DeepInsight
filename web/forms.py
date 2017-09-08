@@ -1,5 +1,5 @@
 from django.contrib.auth import get_user_model
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm
 from django import forms
 from django.forms import widgets
 
@@ -93,4 +93,9 @@ class UserChangeForm(forms.ModelForm):
 class ChangePasswordForm(forms.Form):
     oldPassword = forms.CharField()
     newPassword = forms.CharField()
-    newpassword1 = forms.CharField()
+    newPassword1 = forms.CharField()
+
+
+class UploadFileForm(forms.Form):
+    title = forms.CharField(max_length=50)
+    file = forms.FileField()
