@@ -29,4 +29,4 @@ class User(AbstractUser):
 # Create your models here.
 class UserImage(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL)
-    user_image=models.ImageField('个人照片')
+    user_image=models.ImageField('个人')
