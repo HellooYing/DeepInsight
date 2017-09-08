@@ -1,0 +1,125 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>DeepInsight-软件介绍</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+
+    <!-- Bootstrap styles -->
+    <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}">
+
+    <!-- Font-Awesome -->
+    <link rel="stylesheet" href="{% static "css/font-awesome/css/font-awesome.min.css" %}">
+
+    <!-- Google Webfonts -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600|PT+Serif:400,400italic' rel='stylesheet' type='text/css'>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="{% static "css/style3.css" %} " id="theme-styles">
+
+    <!--[if lt IE 9]>
+        <script src="{% static "js/vendor/google/html5-3.6-respond-1.1.0.min.js" %}"></script>
+    <![endif]-->
+
+
+</head>
+
+<body>
+    <header>
+        <div class="widewrapper masthead">
+            <div class="container">
+                <a href="/" id="logo">
+                    <img src="{% static "images/logo2.png" %} ">
+                </a>
+            </div>
+            <div class="signup"><a href="/signup">注册</a></div>
+            <div class="login"><a href="/login">登录</a></div>
+        </div>
+ 
+        <div class="widewrapper subheader">
+            <div class="container">
+                <div class="clean-breadcrumb">
+                    <a href="/">首页</a>
+                    <span class="separator">&#x2F;</span>
+                    <a href="#">DeepInsight介绍</a>
+
+                </div>
+
+
+                <div class="clean-searchbox">
+                    <form action="#" method="get" accept-charset="utf-8">
+
+
+                    </form>
+                </div>
+            </div>
+        </div>
+       
+    </header>
+
+    <div class="widewrapper main">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 blog-main">
+                    <article class="blog-post">
+                        <header>
+
+                            <div class="lead-image">
+
+
+                            </div>
+                        </header>
+                        <div class="body">
+                            <h1>DeepInsight介绍</h1>
+                            <div class="meta">
+                                <i class="fa fa-user"></i> 开发团队 <i class="fa fa-calendar"></i>2017-08-05
+                            </div>
+                            <p>DeepInsight系统由东北大学医学影像计算教育部重点实验室、江苏省人民医院胸外科团队合作研发，提供三维支气管血管重建、结节精准定位、术前规划等功能。目前向广大胸外科医生免费开放使用，具体申请方法和下载方式请参考本微信公众号。</p>
+                            <img src="{% static "images/jieshao.jpg" %}">
+
+                        </div>
+                    </article>
+
+
+
+
+                </div>
+                <aside class="col-md-4 blog-aside">
+
+                    <div class="aside-widget">
+                        <header>
+                            <h3>其他</h3>
+                        </header>
+                        <div class="body">
+                            <ul class="clean-list">
+                                <li><a href="/">首页</a></li>
+                                <li><a href="/download">DeepInsight试用下载</a></li>
+                                <li><a href="/team">研发团队</a></li>
+                                <li><a href="/user">典型用户</a></li>
+                                <li><a href="/contact">联系我们</a></li>
+                             
+                             
+                            </ul>
+                        </div>
+                    </div>
+
+
+                </aside>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div class="widewrapper copyright">
+            DeepInsight
+        </div>
+    </footer>
+    <script src="{% static "http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js" %}"></script>
+    <script src="{% static "js/bootstrap.min.js" %}"></script>
+    <script src="{% static "js/modernizr.js" %}"></script>
+
+</body>
+
+</html>
