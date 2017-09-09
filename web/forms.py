@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, Pass
 from django import forms
 from django.forms import widgets
 
-from web.models import User
+from web.models import User, UserImage
 
 
 class LoginForm(AuthenticationForm):
@@ -96,6 +96,3 @@ class ChangePasswordForm(forms.Form):
     newPassword1 = forms.CharField()
 
 
-class UploadFileForm(forms.Form):
-    title = forms.CharField(max_length=50)
-    file = forms.FileField()
