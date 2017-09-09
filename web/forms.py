@@ -44,9 +44,7 @@ class RegisterForm(UserCreationForm):
         self.fields['username'] = forms.EmailField(label="邮箱：",
                                                   widget=widgets.TextInput(
                                                       attrs={'placeholder': "邮箱","required":True}))
-        self.fields['phone'] = forms.CharField(label="手机号码：",
-                                                  widget=widgets.TextInput(
-                                                      attrs={'placeholder': "手机号码","required":True}))
+        
         self.fields['unit'] = forms.CharField(label="单位：",
                                                   widget=widgets.TextInput(
                                                       attrs={'placeholder': "单位","required":True}))
@@ -87,7 +85,7 @@ class RegisterForm(UserCreationForm):
 class UserChangeForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ('username', 'phone', 'unit', 'office', 'post', 'professional', 'number')
+        fields = ('username', 'unit', 'office', 'post', 'professional', 'number')
 
 
 class ChangePasswordForm(forms.Form):

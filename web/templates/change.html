@@ -73,7 +73,7 @@
                     <form method="post">
                         {% csrf_token %}
                                 <div class="form-group">
-                                    <label for="email"  class="col-md-3 control-label">电子邮箱</label>
+                                    <label display='inline' for="email"  class="col-md-3 control-label">电子邮箱</label>
                                     <input type="email" class="col-md-9 form-control" id="email" name="username"
                                            value="{{user.username}}" required title>
                                 </div>

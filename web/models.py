@@ -16,9 +16,10 @@ from django.db import models
 class User(AbstractUser):
 
     id = models.IntegerField(primary_key=True, auto_created=True)
-    name = models.CharField('真实姓名',max_length=50)
+   
     username = models.EmailField('邮箱',max_length=50,unique=True,null=False)
-    phone = models.CharField('电话',max_length=11,null=False)
+    name = models.CharField('真实姓名',max_length=50)
+#   phone = models.CharField('电话',max_length=11,null=False)
     unit = models.CharField('单位',max_length=30,null=False)
     office = models.CharField('科室',max_length=50,null=False)
     post = models.CharField('职务',max_length=50,null=False)
