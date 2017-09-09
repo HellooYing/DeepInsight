@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django import forms
 from django.forms import widgets
 
-from web.models import User
+from web.models import User, UserImage
 
 
 class LoginForm(AuthenticationForm):
@@ -90,4 +90,6 @@ class UserChangeForm(forms.ModelForm):
 class ChangePasswordForm(forms.Form):
     oldPassword = forms.CharField()
     newPassword = forms.CharField()
-    newpassword1 = forms.CharField()
+    newPassword1 = forms.CharField()
+
+

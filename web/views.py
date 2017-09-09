@@ -6,10 +6,11 @@ from django.urls import reverse
 from django.contrib import auth, messages
 from django.contrib.auth.hashers import *
 from django.contrib.auth.forms import PasswordChangeForm
+from  web.models import UserImage
+import os
 
-from web.forms import RegisterForm, LoginForm, UserChangeForm, ChangePasswordForm#, UploadFileForm
-from web.models import User
-from . import templates
+from license.settings import BASE_DIR
+from web.forms import RegisterForm, LoginForm, UserChangeForm
 from django.http import HttpResponse, HttpResponseRedirect
 
 
@@ -73,6 +74,7 @@ def user(request):
 def forgot(request):
     return render(request, 'forgot.html', {})
 
+
 @login_required
 def personal(request):
     return render(request, 'personal.html', {})
@@ -117,19 +119,36 @@ def password_change(request):
 
 @login_required
 def upload_file(request):
-    def handle_uploaded_file(f):
-        with open('some/file/name.txt', 'wb+') as destination:
-            for chunk in f.chunks():
+    def file_save(file, username, path):
+        upload_filename = file.name
+        upload_file_type = upload_filename.split('.')[-1]
+        save_image_name = username + '.' + upload_file_type
+        upload_file_path = os.path.join(BASE_DIR, 'web', 'static', 'images', path, save_image_name)
+        with open(upload_file_path, 'wb+') as destination:
+            for chunk in file.chunks():
                 destination.write(chunk)
+        return "images/{}/".format(path) + save_image_name
 
-    if request.method == 'POST':
-        form = UploadFileForm(request.POST, request.FILES)
-        if form.is_valid():
-            handle_uploaded_file(request.FILES['file'])
-            return HttpResponseRedirect('/success/url/')
+    def handle_uploaded_file(file_photo, file_scanning_copy, username, user):
+        user_image = UserImage.objects.filter(user=user)
+        static_image_path = file_save(file_photo, username, 'photo')
+        static_scanning_copy_path = file_save(file_scanning_copy, username, 'scanning_copy')
+        if len(user_image) == 1:
+            user_image[0].user_image_path = static_image_path
+            user_image[0].user_scanning_copy_path = static_scanning_copy_path
+            user_image[0].save()
+        else:
+            user_image = UserImage(user=user, user_image_path=static_image_path,
+                                   user_scanning_copy_path=static_scanning_copy_path)
+            user_image.save()
+
+    if request.method == 'GET':
+        return render(request, 'upload.html', context={})
     else:
-        form = UploadFileForm()
-    return render(request, 'upload.html', {'form': form})
+        print('ok1')
+        handle_uploaded_file(request.FILES['scanning_copy_file'],request.FILES['photo_file'], request.user.username, request.user)
+        messages.success(request, '个人照片上传成功！')
+        return redirect('web:personal')
 
 
 def upload(request):

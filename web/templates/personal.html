@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load bootstrap3 %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -36,7 +37,8 @@
                 <img src="{% static "images/logo2.png" %}" alt="clean Blog">
             </a>
         </div>
-        
+        <div class="signup"><a href="/logout">注销</a></div>s
+        <div class="login"><a href="/personal">欢迎你!{{ user.name }}</a></div>
     </div>
 
     <div class="widewrapper subheader">
@@ -45,6 +47,10 @@
                 <a href="/">首页</a>
                 <span class="separator">&#x2F;</span>
                 <a href="#">个人中心</a>
+
+                {% autoescape off %}{% bootstrap_messages %}{% endautoescape %}
+
+
             </div>
             <div class="clean-breadcrumb2"><a href="/personal">欢迎您！  {{user.name}}</a>
             <span class="separator">&#x2F;</span>
@@ -53,7 +59,6 @@
 
             <div class="clean-searchbox">
                 <form action="#" method="get" accept-charset="utf-8">
-
 
                 </form>
             </div>
@@ -90,7 +95,7 @@
                                     <td width="16%" class="btbg font-center titfont">审核状态</td>
 
                                 </tr>
-                             
+
                                 <tr>
                                     <td width="10%" class="font-center">1</td>
                                     <td width="15%" class="font-center">2017.01.05</td>
@@ -99,7 +104,7 @@
                                     <td width="15%" class="font-center">2017.04.05</td>
                                     <td width="16%" class="font-center">待审核</td>
                                 </tr>
-                              
+
                             </table>
                         </div>
                     </article>

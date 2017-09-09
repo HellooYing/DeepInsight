@@ -16,21 +16,22 @@ from license import settings
 
 
 class User(AbstractUser):
+    id = models.IntegerField(primary_key=True, auto_created=True)
+    name = models.CharField('真实姓名', max_length=50)
+    username = models.EmailField('邮箱', max_length=50, unique=True, null=False)
+    phone = models.CharField('电话', max_length=11, null=False)
+    unit = models.CharField('单位', max_length=30, null=False)
+    office = models.CharField('科室', max_length=50, null=False)
+    post = models.CharField('职务', max_length=50, null=False)
+    professional = models.CharField('职称', max_length=50, null=False)
+    number = models.CharField('工号', max_length=50, null=False)
 
-    id = models.IntegerField(auto_created=True,primary_key=True)
-    username = models.CharField('邮箱/电话号码',max_length=50,unique=True,null=False)
-    name = models.CharField('真实姓名',max_length=50)
-#   phone = models.CharField('电话',max_length=11,null=False)
-    unit = models.CharField('单位',max_length=30,null=False)
-    office = models.CharField('科室',max_length=50,null=False)
-    post = models.CharField('职务',max_length=50,null=False)
-    professional = models.CharField('职称',max_length=50,null=False)
-    number = models.CharField('工号',max_length=50,null=False)
-    isadmin = models.BooleanField('是否为管理员',default=False)
-# Create your models here.
+
 class UserImage(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL)
-    user_image=models.ImageField('个人')
+    user_image_path = models.CharField('个人照片路径', max_length=50, unique=True, null=False)
+    user_scanning_copy_path = models.CharField('扫面件路径', max_length=50, unique=True, null=False,default='')
+
 
 class History(models.Model):
     id = models.IntegerField(auto_created=True,primary_key=True)
