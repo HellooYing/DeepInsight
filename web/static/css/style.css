@@ -1118,14 +1118,16 @@ p.sub-para {
 	margin-left: 1%;
 	margin-right: 2%;
 	margin-bottom: 12px;
-	color: #23B5B9
+    color: #23B5B9
+    font-family: 'Open Sans', sans-serif!important;
 }
 .signup{
 	font-size: 22px;
 	float:right;
 	margin-left: 1%;
 	margin-right: 2%;
-	margin-bottom: 12px;
+    margin-bottom: 12px;
+    font-family: 'Open Sans', sans-serif!important;
 }
 
 .clean-breadcrumb {

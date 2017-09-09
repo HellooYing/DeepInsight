@@ -1,5 +1,5 @@
 from django.contrib.auth import get_user_model
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django import forms
 from django.forms import widgets
 
@@ -16,9 +16,9 @@ class LoginForm(AuthenticationForm):
         :rtype: object
         """
         super(LoginForm, self).__init__(*args, **kwargs)
-        self.fields['username'] = forms.CharField(label='用户名',
+        self.fields['username'] = forms.CharField(label='邮箱/手机号码',
                                                   widget=widgets.TextInput(attrs={
-                                                      'placeholder':'用户名',
+                                                      'placeholder':'邮箱/手机号码',
                                                       'autofocus':True
                                                   }))
         self.fields['password'] = forms.CharField(label='密码',
@@ -32,21 +32,18 @@ class RegisterForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
         super(RegisterForm, self).__init__(*args, **kwargs)
         
-        self.fields['name'] = forms.CharField(label="真实姓名：",
+        self.fields['username'] = forms.CharField(label="邮箱/手机号码：",
                                                   widget=widgets.TextInput(
-                                                      attrs={'placeholder': "真实姓名","autofocus": True, "required":True}))
+                                                      attrs={'placeholder': "邮箱/手机号码","required":True}))
         self.fields['password1'] =forms.CharField(label="密码：",
                                                   widget=widgets.PasswordInput(
                                                       attrs={'placeholder': "密码","required":True}))
         self.fields['password2'] = forms.CharField(label="确认密码：",
                                                   widget=widgets.PasswordInput(
                                                       attrs={'placeholder': "确认密码","required":True}))
-        self.fields['username'] = forms.EmailField(label="邮箱：",
+        self.fields['name'] = forms.CharField(label="真实姓名：",
                                                   widget=widgets.TextInput(
-                                                      attrs={'placeholder': "邮箱","required":True}))
-        self.fields['phone'] = forms.CharField(label="手机号码：",
-                                                  widget=widgets.TextInput(
-                                                      attrs={'placeholder': "手机号码","required":True}))
+                                                      attrs={'placeholder': "真实姓名","required":True}))
         self.fields['unit'] = forms.CharField(label="单位：",
                                                   widget=widgets.TextInput(
                                                       attrs={'placeholder': "单位","required":True}))
@@ -73,7 +70,7 @@ class RegisterForm(UserCreationForm):
         user = super(RegisterForm, self).save(commit=False)
         user.name = self.cleaned_data["name"]
         user.username = self.cleaned_data["username"]
-        user.phone = self.cleaned_data["phone"]
+        # user.phone = self.cleaned_data["phone"]
         user.unit = self.cleaned_data["unit"]
         user.office = self.cleaned_data["office"]
         user.post = self.cleaned_data["post"]
@@ -87,7 +84,7 @@ class RegisterForm(UserCreationForm):
 class UserChangeForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ('username', 'phone', 'unit', 'office', 'post', 'professional', 'number')
+        fields = ('name','unit', 'office', 'post', 'professional', 'number')
 
 
 class ChangePasswordForm(forms.Form):

@@ -79,7 +79,7 @@ def forgot(request):
 def personal(request):
     return render(request, 'personal.html', {})
 
-
+@login_required
 def apply(request):
     return render(request, 'apply.html', {})
 
@@ -116,7 +116,6 @@ def password_change(request):
         else:
             messages.error(request, '密码修改失败！')
             return redirect('web:passwordChange')
-
 
 @login_required
 def upload_file(request):

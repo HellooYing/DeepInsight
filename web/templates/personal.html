@@ -52,6 +52,9 @@
 
 
             </div>
+            <div class="clean-breadcrumb2"><a href="/personal">欢迎您！  {{user.name}}</a>
+            <span class="separator">&#x2F;</span>
+             <a href="/logout">注销</a></div>
 
 
             <div class="clean-searchbox">
@@ -60,88 +63,66 @@
                 </form>
             </div>
         </div>
-    </div>
-</header>
 
-<div class="widewrapper main">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8 blog-main">
-                <article class="blog-post">
+    <div class="widewrapper main">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 blog-main">
+                    <article class="blog-post">
 
 
-                    <div class="body">
-                        <h1>
-                            个人中心
-                        </h1>
-                        <table width="80%" border="0" cellspacing="0" cellpadding="0" align="center">
-                            <tr>
-                                <td align="center" class="biaoti" height="60">License申请记录</td>
-                            </tr>
-                            <tr>
-                                <td align="right" height="25">2017.01.01-2017.08.01</td>
-                            </tr>
-                        </table>
-                        <table width="100%" border="1" cellspacing="1" cellpadding="4" bgcolor="#cccccc"
-                               class="tabtop13" align="center">
-                            <tr>
-                                <td width="10%" class="btbg font-center titfont">序号</td>
-                                <td width="15%" class="btbg font-center titfont">申请日期</td>
-                                <td width="22%" class="btbg font-center titfont">激活码</td>
-                                <td width="22%" class="btbg font-center titfont">SN号</td>
-                                <td width="15%" class="btbg font-center titfont">有效期限</td>
-                                <td width="16%" class="btbg font-center titfont">审核状态</td>
 
-                            </tr>
-                            <tr>
-                                <td width="10%" class="font-center">1</td>
-                                <td width="15%" class="font-center">2017.01.05</td>
-                                <td width="22%" class="font-center">激活码xxxx</td>
-                                <td width="22%" class="font-center">SN号xxx</td>
-                                <td width="15%" class="font-center">2017.04.05</td>
-                                <td width="16%" class="font-center">待审核</td>
 
-                            </tr>
+                        <div class="body">
+                            <h1>
+                                个人中心
+                            </h1>
+                            <table width="80%" border="0" cellspacing="0" cellpadding="0" align="center">
+                                <tr>
+                                    <td align="center" class="biaoti" height="60">License申请记录</td>
+                                </tr>
+                                <tr>
+                                    <td align="right" height="25">2017.01.01-2017.08.01</td>
+                                </tr>
+                            </table>
+                            <table width="100%" border="1" cellspacing="1" cellpadding="4" bgcolor="#cccccc" class="tabtop13" align="center">
+                                <tr>
+                                    <td width="10%" class="btbg font-center titfont">序号</td>
+                                    <td width="15%" class="btbg font-center titfont">申请日期</td>
+                                    <td width="22%" class="btbg font-center titfont">激活码</td>
+                                    <td width="22%" class="btbg font-center titfont">SN号</td>
+                                    <td width="15%" class="btbg font-center titfont">有效期限</td>
+                                    <td width="16%" class="btbg font-center titfont">审核状态</td>
 
-                        </table>
-                    </div>
-                </article>
+                                </tr>
 
-            </div>
-            <aside class="col-md-3 blog-aside">
+                                <tr>
+                                    <td width="10%" class="font-center">1</td>
+                                    <td width="15%" class="font-center">2017.01.05</td>
+                                    <td width="22%" class="font-center">激活码xxxx</td>
+                                    <td width="22%" class="font-center">SN号xxx</td>
+                                    <td width="15%" class="font-center">2017.04.05</td>
+                                    <td width="16%" class="font-center">待审核</td>
+                                </tr>
 
-                <div class="aside-widget">
-                    <header>
-                        <h3>个人应用</h3>
-                    </header>
-                    <div class="body">
-                        <ul class="clean-list">
-                            <li><a href="/">首页</a></li>
-                            <li><a href="/personal">个人中心</a></li>
-                            <li><a href="/personal/change/">个人信息修改</a></li>
-                            <li><a href="/personal/passwordChange">修改密码</a></li>
-                            <li><a href="/personal/upload">上传个人照片与协议扫描件</a></li>
-                            <li><a href="/personal/apply">申请License</a></li>
-                        </ul>
-                    </div>
+                            </table>
+                        </div>
+                    </article>
+
                 </div>
+                <aside class="col-md-3 blog-aside">
 
-
-            </aside>
-
-
-        </div>
-    </div>
-</div>
-<footer>
-    <div class="widewrapper copyright">
-        DeepInsight
-    </div>
-</footer>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script src="{% static "js/bootstrap.min.js" %}"></script>
-<script src="{% static "js/modernizr.js" %}"></script>
-
-</body>
-
-</html>
+                    <div class="aside-widget">
+                        <header>
+                            <h3>个人应用</h3>
+                        </header>
+                        <div class="body">
+                                <ul class="clean-list">
+                                        <li><a href="/personal">个人中心</a></li>
+                                        <li><a href="/personal/change/">个人信息修改</a></li>
+                                        <li><a href="/personal/mima">修改密码</a></li>
+                                        <li><a href="/personal/upload">上传个人照片与协议扫描件</a></li>
+                                        <li><a href="/personal/apply">申请License</a></li>
+                                </ul>
+                        </div>
+                    </div>
