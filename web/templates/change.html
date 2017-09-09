@@ -70,7 +70,7 @@
 
                         <div class="body">
                             <h1>修改个人信息</h1>
-                    <form method="post">
+                    <form method="post" role="form" >
                         {% csrf_token %}
                                 <div class="form-group">
                                     <label display='inline' for="email"  class="col-md-3 control-label">电子邮箱</label>
@@ -131,7 +131,7 @@
                                  <li><a href="/">首页</a></li>
                                  <li><a href="/personal">个人中心</a></li>
                                  <li><a href="/personal/change/">个人信息修改</a></li>
-                                 <li><a href="/personal/mima">修改密码</a></li>
+                                 <li><a href="/personal/passwordChange">修改密码</a></li>
                                  <li><a href="/personal/upload">上传个人照片与协议扫描件</a></li>
                                  <li><a href="/personal/apply">申请License</a></li>
                                 </ul>

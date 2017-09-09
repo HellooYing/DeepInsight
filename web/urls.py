@@ -16,7 +16,7 @@ urlpatterns = [
     url(r'^personal/apply/', views.apply),
     url(r'^personal/change/', views.change, name='change'),
     url(r'^administrator/$', views.administrator, name='administrator'),
-    url(r'^personal/mima/', views.mima),
+    url(r'^personal/passwordChange/', views.password_change,name='passwordChange'),
     url(r'^personal/upload/', views.upload),
     url(r'^logout', views.logout),
 ]

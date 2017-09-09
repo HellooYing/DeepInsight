@@ -12,6 +12,8 @@ from django.db import models
 #     post = models.CharField('职务',max_length=50,null=False)
 #     professional = models.CharField('职称',max_length=50,null=False)
 #     number = models.CharField('工号',max_length=50,null=False)
+from license import settings
+
 
 class User(AbstractUser):
 
@@ -26,3 +28,6 @@ class User(AbstractUser):
     professional = models.CharField('职称',max_length=50,null=False)
     number = models.CharField('工号',max_length=50,null=False)
 # Create your models here.
+class UserImage(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL)
+    user_image=models.ImageField('个人')
