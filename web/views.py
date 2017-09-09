@@ -6,7 +6,7 @@ from django.urls import reverse
 from django.contrib import auth, messages
 from django.contrib.auth.hashers import *
 from django.contrib.auth.forms import PasswordChangeForm
-from  web.models import UserImage
+from  web.models import UserImage,History,User
 import os
 
 from license.settings import BASE_DIR

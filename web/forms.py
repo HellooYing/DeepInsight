@@ -32,9 +32,12 @@ class RegisterForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
         super(RegisterForm, self).__init__(*args, **kwargs)
         
-        self.fields['username'] = forms.CharField(label="邮箱/手机号码：",
-                                                  widget=widgets.TextInput(
-                                                      attrs={'placeholder': "邮箱/手机号码","required":True}))
+        self.fields['username'] = forms.EmailField(label="邮箱：",
+                                                  widget=widgets.EmailInput(
+                                                      attrs={'placeholder': "邮箱","required":True}))
+        self.fields['phone'] = forms.IntegerField(label="手机号码：",
+                                                  widget=widgets.NumberInput(
+                                                      attrs={'placeholder': "手机号码", "required": True}))
         self.fields['password1'] =forms.CharField(label="密码：",
                                                   widget=widgets.PasswordInput(
                                                       attrs={'placeholder': "密码","required":True}))
