@@ -25,6 +25,7 @@ class User(AbstractUser):
     post = models.CharField('职务', max_length=50, null=False)
     professional = models.CharField('职称', max_length=50, null=False)
     number = models.CharField('工号', max_length=50, null=False)
+    isadmin = models.BooleanField("是否为管理员", default=False)
 
 
 class UserImage(models.Model):
