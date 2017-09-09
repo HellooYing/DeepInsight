@@ -398,6 +398,26 @@ Elements that are used througout clean, such as Searchboxes, Blog elements, Widg
   margin: 0 10px 0 10px;
 }
 
+.clean-breadcrumb2 {
+  color: #7b8690;
+  float: right;
+  margin-top: 19px;
+}
+
+.clean-breadcrumb2 a {
+  color: #7b8690;
+}
+
+.clean-breadcrumb2 a:hover,
+.clean-breadcrumb2 a:focus {
+  text-decoration: none;
+}
+
+.clean-breadcrumb2 .separator {
+  margin: 0 10px 0 10px;
+}
+
+
 /* The searchbox in the subheader on top of the site */
 .clean-searchbox {
   float: right;
@@ -795,10 +815,10 @@ Blog main page paging
 
 .blog-post header h1 {
   font-family: 'PT Serif', serif;
-  margin-bottom: 22px;
+   margin-bottom: 22px; 
 }
 
-.blog-post header .lead-image {
+.blog-post header .lead-image { 
   position: relative;
 }
 
@@ -1475,12 +1495,12 @@ fieldset[disabled] .btn-clean-two.active {
 	line-height: 20px;
 }
 .login{
-  font-size: 22px;
+font-size: 22px;
 float:right;
 margin-left: 1%;
 margin-right: 2%;
 margin-bottom: 12px;
-color: #23B5B9
+color:#2e363e;
 }
 .signup{
 font-size: 22px;

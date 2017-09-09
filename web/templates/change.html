@@ -37,20 +37,23 @@
                     <img src="{% static "images/logo2.png" %}" alt="clean Blog">
                 </a>
       </div>
-      <div class="signup"><a href="/logout">注销</a></div>
-      <div class="login"><a href="/login">???</a></div>
+      
         </div>
 
         <div class="widewrapper subheader">
             <div class="container">
                 <div class="clean-breadcrumb">
                     <a href="/">首页</a>
+                   
                     <span class="separator">&#x2F;</span>
                     <a href="#">修改个人信息</a>
+                   
                      {% autoescape off %}{% bootstrap_messages %}{% endautoescape %}
 
                 </div>
-
+                <div class="clean-breadcrumb2"><a href="/personal">欢迎您！  {{user.name}}</a>
+                    <span class="separator">&#x2F;</span>
+                     <a href="/logout">注销</a></div>
 
                 <div class="clean-searchbox">
                     <form action="#" method="get" accept-charset="utf-8">
@@ -70,18 +73,14 @@
 
                         <div class="body">
                             <h1>修改个人信息</h1>
-                    <form method="post">
+                    <form method="post" role="form" >
                         {% csrf_token %}
-                                <div class="form-group">
-                                    <label for="email"  class="col-md-3 control-label">电子邮箱</label>
-                                    <input type="email" class="col-md-9 form-control" id="email" name="username"
-                                           value="{{user.username}}" required title>
-                                </div>
+                               
                         
                                 <div class="form-group">
-                                    <label for="phone" class="col-md-3 control-label">手机号码</label>
-                                    <input type="text" class="col-md-9 col-md-9 form-control" id="phone" name="phone"
-                                           value="{{user.phone}}" required title>
+                                    <label for="name" class="col-md-3 control-label">真实姓名</label>
+                                    <input type="text" class="col-md-9 col-md-9 form-control" id="name" name="name"
+                                           value="{{user.name}}" required title>
                                 </div>
                                 <div class="form-group">
                                     <label for="unit" class="col-md-3 control-label">单位</label>
@@ -128,10 +127,9 @@
                         </header>
                         <div class="body">
                                 <ul class="clean-list">
-                                 <li><a href="/">首页</a></li>
                                  <li><a href="/personal">个人中心</a></li>
                                  <li><a href="/personal/change/">个人信息修改</a></li>
-                                 <li><a href="/personal/mima">修改密码</a></li>
+                                 <li><a href="/personal/passwordChange">修改密码</a></li>
                                  <li><a href="/personal/upload">上传个人照片与协议扫描件</a></li>
                                  <li><a href="/personal/apply">申请License</a></li>
                                 </ul>

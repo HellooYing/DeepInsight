@@ -1,10 +1,13 @@
+from django.contrib.auth import authenticate, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.contrib import auth, messages
+from django.contrib.auth.hashers import *
+from django.contrib.auth.forms import PasswordChangeForm
 
-from web.forms import RegisterForm, LoginForm, UserChangeForm
+from web.forms import RegisterForm, LoginForm, UserChangeForm, ChangePasswordForm#, UploadFileForm
 from web.models import User
 from . import templates
 from django.http import HttpResponse, HttpResponseRedirect
@@ -35,17 +38,10 @@ def signup(request):
         print(request.POST.get('username'))
         form = RegisterForm(request.POST)
         if form.is_valid():  # RegisterForm继承了UserCreationForm， 会完成用户密码强度检查，用户是否存在的验证
-            print('ok')
             form.save(True)  # 认证通过。直接保存到数据库
             url = reverse('web:login')
             return HttpResponseRedirect(url)
         else:
-            print(form.fields.get('username'))
-            print(form.fields.get('unit'))
-            print(form.fields.get('phone'))
-            print(form.fields.get('office'))
-            print(form.fields.get('professional'))
-            print(form.fields.get('post'))
             return render(request, 'signup1.html', context={'form': form})
 
 
@@ -77,11 +73,11 @@ def user(request):
 def forgot(request):
     return render(request, 'forgot.html', {})
 
-
+@login_required
 def personal(request):
     return render(request, 'personal.html', {})
 
-
+@login_required
 def apply(request):
     return render(request, 'apply.html', {})
 
@@ -90,8 +86,7 @@ def apply(request):
 @transaction.atomic
 def change(request):
     if request.method == 'GET':
-        print('ok')
-        return render(request, 'change.html', context={'form':UserChangeForm(instance=request.user)})
+        return render(request, 'change.html', context={'form': UserChangeForm(instance=request.user)})
     else:
         user_form = UserChangeForm(request.POST, instance=request.user)
         if user_form.is_valid():
@@ -103,8 +98,38 @@ def change(request):
             return redirect('web:change')
 
 
-def mima(request):
-    return render(request, 'mima.html', {})
+@login_required
+def password_change(request):
+    if request.method == 'GET':
+        form = PasswordChangeForm(request.user)
+        return render(request, 'passwordChange.html', context={'form': form})
+    else:
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            form.save(commit=True)
+            update_session_auth_hash(request, user)
+            messages.success(request, '密码修改成功！')
+            return redirect('web:personal')
+
+        else:
+            messages.error(request, '密码修改失败！')
+            return redirect('web:passwordChange')
+
+@login_required
+def upload_file(request):
+    def handle_uploaded_file(f):
+        with open('some/file/name.txt', 'wb+') as destination:
+            for chunk in f.chunks():
+                destination.write(chunk)
+
+    if request.method == 'POST':
+        form = UploadFileForm(request.POST, request.FILES)
+        if form.is_valid():
+            handle_uploaded_file(request.FILES['file'])
+            return HttpResponseRedirect('/success/url/')
+    else:
+        form = UploadFileForm()
+    return render(request, 'upload.html', {'form': form})
 
 
 def upload(request):
