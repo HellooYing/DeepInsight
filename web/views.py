@@ -7,7 +7,7 @@ from django.contrib import auth, messages
 from django.contrib.auth.hashers import *
 from django.contrib.auth.forms import PasswordChangeForm
 
-from web.forms import RegisterForm, LoginForm, UserChangeForm, ChangePasswordForm, UploadFileForm
+from web.forms import RegisterForm, LoginForm, UserChangeForm, ChangePasswordForm#, UploadFileForm
 from web.models import User
 from . import templates
 from django.http import HttpResponse, HttpResponseRedirect
@@ -73,11 +73,11 @@ def user(request):
 def forgot(request):
     return render(request, 'forgot.html', {})
 
-
+@login_required
 def personal(request):
     return render(request, 'personal.html', {})
 
-
+@login_required
 def apply(request):
     return render(request, 'apply.html', {})
 
@@ -115,7 +115,7 @@ def password_change(request):
             messages.error(request, '密码修改失败！')
             return redirect('web:passwordChange')
 
-
+@login_required
 def upload_file(request):
     def handle_uploaded_file(f):
         with open('some/file/name.txt', 'wb+') as destination:

@@ -35,8 +35,7 @@
                     <img src="{% static "images/logo2.png" %}" alt="clean Blog">
                 </a>
             </div>
-            <div class="signup"><a href="/signup">注销</a></div>
-            <div class="login"><a href="/login">个人中心</a></div>
+            
         </div>
 
         <div class="widewrapper subheader">
@@ -47,7 +46,9 @@
                     <a href="#">上传个人照片与协议扫描件</a>
 
                 </div>
-
+                <div class="clean-breadcrumb2"><a href="/personal">欢迎您！  {{user.name}}</a>
+                    <span class="separator">&#x2F;</span>
+                     <a href="/logout">注销</a></div>
 
                
                 </div>
@@ -87,7 +88,6 @@
                         </header>
                         <div class="body">
                             <ul class="clean-list">
-                                <li><a href="/">首页</a></li>
                                 <li><a href="/personal">个人中心</a></li>
                                 <li><a href="/personal/change/">个人信息修改</a></li>
                                 <li><a href="/personal/mima">修改密码</a></li>
