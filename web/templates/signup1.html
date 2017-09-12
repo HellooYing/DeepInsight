@@ -120,10 +120,10 @@
                     validators: {
                         notEmpty: {
                             message: '邮件不能为空'
+                        },
+                        emailAddress: {
+                            message: '请输入正确的邮件地址如：123@163.com'
                         }
-                        // emailAddress: {
-                        //     message: '请输入正确的邮件地址如：123@163.com'
-                        // }
                     }
                 },
                 password1: {
@@ -184,7 +184,23 @@
                     }
                 },
               
-                
+                // phone: {
+                //     message: 'The phone is not valid',
+                //     validators: {
+                //         notEmpty: {
+                //             message: '手机号码不能为空'
+                //         },
+                //         stringLength: {
+                //             min: 11,
+                //             max: 11,
+                //             message: '请输入11位手机号码'
+                //         },
+                //         regexp: {
+                //             regexp: /^1[0-9]{10}$/,
+                //             message: '请输入正确的手机号码'
+                //         }
+                //     }
+                // } 
             }
         });
     });

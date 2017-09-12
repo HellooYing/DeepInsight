@@ -1,14 +1,16 @@
 from django.contrib.auth import authenticate, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,render_to_response
 from django.urls import reverse
 from django.contrib import auth, messages
 from django.contrib.auth.hashers import *
 from django.contrib.auth.forms import PasswordChangeForm
-from  web.models import UserImage,History,User
+from web.models import UserImage,History,User
+from web.forms import HistoryForm
+from web import forms
 import os
-
+from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
 from license.settings import BASE_DIR
 from web.forms import RegisterForm, LoginForm, UserChangeForm
 from django.http import HttpResponse, HttpResponseRedirect
@@ -75,13 +77,44 @@ def forgot(request):
     return render(request, 'forgot.html', {})
 
 
-@login_required
-def personal(request):
-    return render(request, 'personal.html', {})
+
 
 @login_required
 def apply(request):
     return render(request, 'apply.html', {})
+    #HistoryForm是forms.py中定义的表单.这个的意思是history_form获取HistoryForm中的内容?它有什么用?
+    #personal_history = History.objects.all()#filter(user = User.username)
+    #History是models.py中的类名,与建立数据库有关,personal_history是数据库中的数据集合?
+    #它与history_form有什么联系?或者personal_history与history_form是通过models.py与forms.py联系的?
+    #return render_to_response("apply.html",locals())
+    #这个'history'是否是实例?
+    #if request.method=="POST":#/"GET":  这句话的用途是什么?
+
+@login_required
+def personal(request):
+    history_form=forms.HistoryForm()  
+    personal_historys=History.objects.filter(user = request.user)
+    return render(request, "personal.html",context={"personal_historys": personal_historys})
+
+
+
+def administrator(request):
+    history_form=forms.HistoryForm()   
+    admin_historys=History.objects.filter(examine = "未审核")
+    for history in admin_historys:
+        user=history.user
+        print(history.apply_time)
+        user_images = UserImage.objects.filter(user=user)
+        history.user_image = user_images[0]
+    return render(request, "administrator.html",context={"admin_historys": admin_historys})
+    # history_form = HistoryForm(request.POST, instance=request.history)
+    # admin_history=History.objects.all()
+    # return render(request, 'administrator.html', {'history': admin_history})  
+    # #if request.method=="POST":/"GET":
+    # history_form = HistoryForm(request.POST, instance=request.history)
+    # admin_history = History.objects.filter(examine = "未审核")
+    # #return render_to_response("administrator.html",locals())
+    # return render(request, 'administrator.html', {'history': admin_history})
 
 
 @login_required
@@ -155,8 +188,7 @@ def upload(request):
     return render(request, 'upload.html', {})
 
 
-def administrator(request):
-    return render(request, 'administrator.html', {})
+
 
 
 def edit_action(request):

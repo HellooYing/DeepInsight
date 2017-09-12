@@ -69,6 +69,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8 blog-main">
+                    <div class="col-md-8">
                     <article class="blog-post">
 
                         <div class="body">
@@ -78,43 +79,45 @@
 
 
                                 <div class="form-group">
-                                    <label for="name" class="col-md-3 control-label">真实姓名</label>
-                                    <input type="text" class="col-md-9 col-md-9 form-control" id="name" name="name"
+                                        <label for="name" class="col-md-3 control-label changemargin">真实姓名:</label>
+                                    <input type="text" class="col-md-9 form-control inputpadding" id="name" name="name"
                                            value="{{user.name}}" required title>
                                 </div>
                                 <div class="form-group">
-                                    <label for="unit" class="col-md-3 control-label">单位</label>
-                                    <input type="text" class="col-md-9 form-control" id="unit" name="unit"
+                                    <label for="unit" class="col-md-3 control-label changemargin">单位:</label>
+                                    <input type="text" class="col-md-9 form-control inputpadding" id="unit" name="unit"
                                            value="{{user.unit}}" required title>
                                 </div>
                                 <div class="form-group">
-                                    <label for="office" class="col-md-3 control-label">科室</label>
-                                    <input type="text" class="col-md-9 form-control" id="office" name="office"
+                                    <label for="office" class="col-md-3 control-label changemargin">科室:</label>
+                                    <input type="text" class="col-md-9 form-control inputpadding" id="office" name="office"
                                            value="{{user.office}}" required title>
                                 </div>
                                 <div class="form-group">
-                                    <label for="post" class="col-md-3 control-label">职务</label>
-                                    <input type="text" class="col-md-9 form-control" id="post" name="post"
+                                    <label for="post" class="col-md-3 control-label changemargin">职务:</label>
+                                    <input type="text" class="col-md-9 form-control inputpadding" id="post" name="post"
                                            value="{{user.post}}" required title>
                                 </div>
                                 <div class="form-group">
-                                    <label for="professional" class="col-md-3 control-label">职称</label>
-                                    <input type="text" class="col-md-9 form-control" id="professional" name="professional"
+                                    <label for="professional" class="col-md-3 control-label changemargin">职称:</label>
+                                    <input type="text" class="col-md-9 form-control inputpadding" id="professional" name="professional"
                                            value="{{user.professional}}" required title>
                                 </div>
                                 <div class="form-group">
-                                    <label for="number" class="col-md-3 control-label">工号</label>
-                                    <input type="text" class="col-md-9 form-control" id="number" name="number"
+                                    <label for="number" class="col-md-3 control-label changemargin">工号:</label>
+                                    <input type="text" class="col-md-9 form-control inputpadding" id="number" name="number"
                                            value="{{user.number}}" required title>
                                 </div>
+                            </br>
                                 <div class="form-group">
-                                    <input type="submit" value="修改" class="btn btn-primary">
+                               
+                                    <input type="submit" value="修改" class="btn btn-primary inputmargin">
                                 </div>
        
 </form>
                         </div>
                     </article>
-
+                    </div>
 
 
 
@@ -129,7 +132,7 @@
                                 <ul class="clean-list">
                                  <li><a href="/personal">个人中心</a></li>
                                  <li><a href="/personal/change/">个人信息修改</a></li>
-                                 <li><a href="/personal/passwordChange">修改密码</a></li>
+                                 <li><a href="/personal/passwordChangeChange">修改密码</a></li>
                                  <li><a href="/personal/upload">上传个人照片与协议扫描件</a></li>
                                  <li><a href="/personal/apply">申请License</a></li>
                                 </ul>

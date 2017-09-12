@@ -35,8 +35,8 @@
                     <img src="{% static "images/logo2.png" %}" alt="clean Blog">
                 </a>
             </div>
-            <div class="signup"><a href="/signup">注销</a></div>
-            <div class="login"><a href="/login">管理员中心</a></div>
+            <div class="signup"><a href="/logout">注销</a></div>
+            <div class="login"><a href="/administrator">管理员中心</a></div>
         </div>
 
         <div class="widewrapper subheader">
@@ -74,7 +74,7 @@
                             </h2>
                             <table width="80%" border="0" cellspacing="0" cellpadding="0" align="center">
                                 <tr>
-                                    <td align="center" class="biaoti" height="60">待批准申请</td>
+                                    <td align="center" class="biaoti" height="60">待审核申请</td>
                                 </tr>
                                 <tr>
                                     <td align="right" height="25">2017.01.01-2017.08.01</td>
@@ -91,19 +91,23 @@
                                     <td width="10%" class="btbg font-center titfont">审核状态</td>
                                     <td width="10%" class="btbg font-center titfont">是否批准</td>
                                 </tr>
+                                {% for history in admin_historys %}
                                 <tr>
-                                    <td width="5%" class="btbg font-center">1</td>
-                                    <td width="12%" class="btbg font-center">2017.9.7</td>
-                                    <td width="12%" class="btbg font-center"><a href="#">2669612599@qq.com</a></td>
-                                    <td width="13%" class="btbg font-center">马莹莹</td>
-                                    <td width="19%" class="btbg font-center titfont"><img src=""></td>
-                                    <td width="19%" class="btbg font-center titfont"><img src=""></td>
-                                    <td width="10%" class="btbg font-center">待审核</td>
+                                    <td width="5%" class="btbg font-center">{{history.id}}</td>
+                                    <td width="12%" class="btbg font-center">{{history.apply_time}}</td>
+                                    <td width="12%" class="btbg font-center"><a href="#">{{history.user.username}}</a></td>
+                                    <td width="13%" class="btbg font-center">{{history.user.name}}</td>
+                                    <td width="19%" class="btbg font-center titfont"><img src={% static history.user_image.user_image_path %}></td>
+                                    <td width="19%" class="btbg font-center titfont"><img src={% static history.user_image.user_scanning_copy_path %}></td>
+                                    <td width="10%" class="btbg font-center">{{history.examine}}</td>
                                     <td width="10%" class="btbg font-center">
-                                        <input type="radio" name="ratify" value="yes" /> 是</br>
-                                        <input type="radio" name="ratify" value="no" />否</td>
+                                    <input type="button" onclick="AjaxSubmit1();" value="批准"> 
+                                    </br>
+                                    <input type="button" onclick="AjaxSubmit2();" value="取消">
+                                       
+                                       
                                 </tr>
-                               
+                               {% endfor %}
                             </table>
                         </div>
                     </article>
@@ -141,6 +145,7 @@
     </footer>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="{% static "js/bootstrap.min.js" %}"></script>
+    <script src="{% static "js/examine.js" %}"></script>
     <script src="{% static "js/modernizr.js" %}"></script>
 
 </body>

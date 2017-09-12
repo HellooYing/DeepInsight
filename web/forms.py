@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django import forms
 from django.forms import widgets
 
-from web.models import User, UserImage
+from web.models import User, UserImage,History
 
 
 class LoginForm(AuthenticationForm):
@@ -16,9 +16,9 @@ class LoginForm(AuthenticationForm):
         :rtype: object
         """
         super(LoginForm, self).__init__(*args, **kwargs)
-        self.fields['username'] = forms.CharField(label='邮箱/手机号码',
+        self.fields['username'] = forms.CharField(label='邮箱',
                                                   widget=widgets.TextInput(attrs={
-                                                      'placeholder':'邮箱/手机号码',
+                                                      'placeholder':'邮箱',
                                                       'autofocus':True
                                                   }))
         self.fields['password'] = forms.CharField(label='密码',
@@ -35,8 +35,8 @@ class RegisterForm(UserCreationForm):
         self.fields['username'] = forms.EmailField(label="邮箱：",
                                                   widget=widgets.EmailInput(
                                                       attrs={'placeholder': "邮箱","required":True}))
-        self.fields['phone'] = forms.IntegerField(label="手机号码：",
-                                                  widget=widgets.NumberInput(
+        self.fields['phone'] = forms.CharField(label="手机号码：",
+                                                  widget=widgets.TextInput(
                                                       attrs={'placeholder': "手机号码", "required": True}))
         self.fields['password1'] =forms.CharField(label="密码：",
                                                   widget=widgets.PasswordInput(
@@ -88,6 +88,11 @@ class UserChangeForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ('name','unit', 'office', 'post', 'professional', 'number')
+
+class HistoryForm(forms.ModelForm):
+    class Meta:
+        model = History
+        fields = ('id', 'apply_time', 'ratify_time', 'limit_time', 'activation', 'user', 'SNnum', 'examine', 'pass_or_not')
 
 
 class ChangePasswordForm(forms.Form):
