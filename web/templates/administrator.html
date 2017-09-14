@@ -96,15 +96,15 @@
                                 <tr>
                                     <td width="5%" class="btbg font-center">{{history.id}}</td>
                                     <td width="12%" class="btbg font-center">{{history.apply_time}}</td>
-                                    <td width="12%" class="btbg font-center" id="ToFindUser"><a href="#">{{history.user.username}}</a></td>
+                                    <td width="12%" class="btbg font-center"><a href="#" id="more">{{history.user.username}}</a></td>
                                     <td width="13%" class="btbg font-center">{{history.user.name}}</td>
                                     <td width="19%" class="btbg font-center titfont"><img src={% static history.user_image.user_image_path %}></td>
                                     <td width="19%" class="btbg font-center titfont"><img src={% static history.user_image.user_scanning_copy_path %}></td>
-                                    <td width="10%" class="btbg font-center">{{history.examine}}</td>
+                                    <td width="10%" class="btbg font-center" id='{{history.id}}'>{{history.examine}}</td>
                                     <td width="10%" class="btbg font-center">
-                                    <input type="button" id="allow" value="批准"> 
+                                    <button type="button" onclick="allow({{history.id}})" id="allow">批准</button> 
                                     </br>
-                                    <input type="button" id="cancel" value="取消">
+                                    <button type="button" onclick="cancel({{history.id}})" id="cancel">取消</button>
                                        
                                        
                                 </tr>
@@ -138,20 +138,25 @@
     </footer>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="{% static "js/bootstrap.min.js" %}"></script>
-    <script src="{% static "js/examine.js" %}"></script>
     <script src="{% static "js/modernizr.js" %}"></script>
     <script src="../static/js/jquery-1.11.1.min.js"></script>
 
     <script>
-        $(document).ready(function(){
-            $("#allow").click(function(){
-                
-                    $("span").load("demo_ajax_gethint.php",{suggest:history_examine});
-            });
-        });
-        
-        </script>
-
+   
+       
+    function allow(id)
+    {
+    $.getJSON("/allow_examine", { allow_history_id: id },function(result){ 
+    $("#"+id).text(result.examine);
+    });
+    }
+    function cancel(id)
+    {
+    $.getJSON("/cancel_examine", { cancel_history_id: id },function(result){ 
+    $("#"+id).text(result.examine);
+    });
+    }
+</script>
 </body>
 
 </html>

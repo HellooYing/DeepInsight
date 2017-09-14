@@ -19,5 +19,8 @@ urlpatterns = [
     url(r'^personal/passwordChange/', views.password_change,name='passwordChange'),
     url(r'^personal/upload/', views.upload_file,name='upload'),
     url(r'^personal/new_apply/', views.new_apply,name='new_apply'),
+    url(r'^allow_examine/', views.allow_examine,name='allow_examine'),
+    url(r'^cancel_examine/', views.cancel_examine,name='cancel_examine'),
+    url(r'^administrator/more', views.more,name='more'),
     url(r'^logout', views.logout),
 ]

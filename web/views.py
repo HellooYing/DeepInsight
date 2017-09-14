@@ -14,6 +14,7 @@ from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
 from license.settings import BASE_DIR
 from web.forms import RegisterForm, LoginForm, UserChangeForm
 from django.http import HttpResponse, HttpResponseRedirect
+import json
 
 
 def login(request):
@@ -41,9 +42,14 @@ def signup(request):
         print(request.POST.get('username'))
         form = RegisterForm(request.POST)
         if form.is_valid():  # RegisterForm继承了UserCreationForm， 会完成用户密码强度检查，用户是否存在的验证
-            form.save(True)  # 认证通过。直接保存到数据库
-            url = reverse('web:login')
-            return HttpResponseRedirect(url)
+            try:
+                form.save(True)  # 认证通过。直接保存到数据库
+                url = reverse('web:login')
+                return HttpResponseRedirect(url)
+            except:
+                messages.error(request,'您的邮箱已注册!')
+                url = reverse('web:signup')
+                return HttpResponseRedirect(url)
         else:
             return render(request, 'signup1.html', context={'form': form})
 
@@ -101,12 +107,27 @@ def new_apply(request):
         messages.error(request, '您的申请正在处理,请耐心等待！')
         return redirect('web:apply')
         
-def examine_allow(request):
-        allow_history.examine="审核通过"
-        allow_history.save()
-        return redirect('web:apply')
+def allow_examine(request):
+    history_id_allow=request.GET.get('allow_history_id')
+    user_history=History.objects.get(id=history_id_allow)
+    user_history.examine="审核通过"
+    user_history.save()
+    response_data = {'examine':user_history.examine}  
+    return HttpResponse(json.dumps(response_data), content_type="application/json")  
    
-        
+def cancel_examine(request):
+    history_id_cancel=request.GET.get('cancel_history_id')
+    user_history=History.objects.get(id=history_id_cancel)
+    user_history.examine="未通过"
+    user_history.save()
+    response_data = {'examine':user_history.examine}  
+    return HttpResponse(json.dumps(response_data), content_type="application/json")  
+
+
+def more(request):
+    user_history=History.objects.get(username=username_more)
+    user=history.user
+    return redirect('web:more')       
 
 
 @login_required
