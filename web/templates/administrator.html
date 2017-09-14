@@ -35,8 +35,7 @@
                     <img src="{% static "images/logo2.png" %}" alt="clean Blog">
                 </a>
             </div>
-            <div class="signup"><a href="/logout">注销</a></div>
-            <div class="login"><a href="/administrator">管理员中心</a></div>
+           
         </div>
 
         <div class="widewrapper subheader">
@@ -47,7 +46,9 @@
                     <a href="#">管理员中心</a>
 
                 </div>
-
+                <div class="clean-breadcrumb2"><a href="/personal">欢迎您！  {{user.name}}</a>
+                    <span class="separator">&#x2F;</span>
+                     <a href="/logout">注销</a></div>
 
                 <div class="clean-searchbox">
                     <form action="#" method="get" accept-charset="utf-8">
@@ -62,7 +63,7 @@
     <div class="widewrapper main">
         <div class="container">
             <div class="row">
-                <div class="col-md-8 blog-main">
+                <div class="col-md-10 blog-main">
                     <article class="blog-post">
 
 
@@ -95,15 +96,15 @@
                                 <tr>
                                     <td width="5%" class="btbg font-center">{{history.id}}</td>
                                     <td width="12%" class="btbg font-center">{{history.apply_time}}</td>
-                                    <td width="12%" class="btbg font-center"><a href="#">{{history.user.username}}</a></td>
+                                    <td width="12%" class="btbg font-center" id="ToFindUser"><a href="#">{{history.user.username}}</a></td>
                                     <td width="13%" class="btbg font-center">{{history.user.name}}</td>
                                     <td width="19%" class="btbg font-center titfont"><img src={% static history.user_image.user_image_path %}></td>
                                     <td width="19%" class="btbg font-center titfont"><img src={% static history.user_image.user_scanning_copy_path %}></td>
                                     <td width="10%" class="btbg font-center">{{history.examine}}</td>
                                     <td width="10%" class="btbg font-center">
-                                    <input type="button" onclick="AjaxSubmit1();" value="批准"> 
+                                    <input type="button" id="allow" value="批准"> 
                                     </br>
-                                    <input type="button" onclick="AjaxSubmit2();" value="取消">
+                                    <input type="button" id="cancel" value="取消">
                                        
                                        
                                 </tr>
@@ -113,27 +114,19 @@
                     </article>
 
                 </div>
-                <aside class="col-md-3 blog-aside">
-
-                    <div class="aside-widget">
-                        <header>
-                            <h3>个人应用</h3>
-                        </header>
-                        <div class="body">
-                            <ul class="clean-list">
-                                <li><a href="/personal/change/">个人信息修改</a></li>
-                                <li><a href="/personal/apply/">申请License</a></li>
-
-
-
-                            </ul>
-                        </div>
-                    </div>
-
-
-                </aside>
-
-
+                <aside class="col-md-2 blog-aside">
+                    
+                                    <div class="aside-widget">
+                                        <header>
+                                            <h3>其他</h3>
+                                        </header>
+                                        <div class="body">
+                                            <ul class="clean-list">
+                                                <li><a href="/">统计分析</a></li>
+                                                
+                                            </ul>
+                                        </div>
+                                    </div>
 
             </div>
         </div>
@@ -147,6 +140,17 @@
     <script src="{% static "js/bootstrap.min.js" %}"></script>
     <script src="{% static "js/examine.js" %}"></script>
     <script src="{% static "js/modernizr.js" %}"></script>
+    <script src="../static/js/jquery-1.11.1.min.js"></script>
+
+    <script>
+        $(document).ready(function(){
+            $("#allow").click(function(){
+                
+                    $("span").load("demo_ajax_gethint.php",{suggest:history_examine});
+            });
+        });
+        
+        </script>
 
 </body>
 

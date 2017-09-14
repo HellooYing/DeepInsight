@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load bootstrap3 %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -46,7 +47,7 @@
                     <a href="/">首页</a>
                     <span class="separator">&#x2F;</span>
                     <a href="#">申请License</a>
-
+                    {% autoescape off %}{% bootstrap_messages %}{% endautoescape %}
                 </div>
                 <div class="clean-breadcrumb2"><a href="/personal">欢迎您！  {{user.name}}</a>
                     <span class="separator">&#x2F;</span>
@@ -71,7 +72,7 @@
                         <div class="body">
                             <h1>申请License</h1>
                             <div class="form-group">
-                                <input type="submit" value="申请" class="btn btn-primary">
+                                <a href="/personal/new_apply" class="btn btn-primary" >申请</a>
                             </div>
                         </div>
                     </article>
@@ -98,6 +99,7 @@
             </div>
         </div>
     </div>
+
     <footer>
         <div class="widewrapper copyright">
             DeepInsight

@@ -1,3 +1,5 @@
+{% load staticfiles %}
+{% load bootstrap3 %}
 <!DOCTYPE HTML>
 <html>
 
@@ -69,7 +71,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <div class="container">
                 <div class="clean-breadcrumb">
                     <a href="/">首页</a>
-                   
+                    {% autoescape off %}{% bootstrap_messages %}{% endautoescape %}
 
                 </div>
 

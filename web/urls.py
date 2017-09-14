@@ -13,10 +13,11 @@ urlpatterns = [
     url(r'^contact/',views.contact,name='contact' ),
     url(r'^login/forgot/',views.forgot ),
     url(r'^personal/$', views.personal,name='personal'),
-    url(r'^personal/apply/', views.apply),
+    url(r'^personal/apply/', views.apply,name='apply'),
     url(r'^personal/change/', views.change, name='change'),
     url(r'^administrator/$', views.administrator, name='administrator'),
     url(r'^personal/passwordChange/', views.password_change,name='passwordChange'),
-    url(r'^personal/upload/', views.upload_file),
+    url(r'^personal/upload/', views.upload_file,name='upload'),
+    url(r'^personal/new_apply/', views.new_apply,name='new_apply'),
     url(r'^logout', views.logout),
 ]

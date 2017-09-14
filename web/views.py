@@ -81,32 +81,60 @@ def forgot(request):
 
 @login_required
 def apply(request):
-    return render(request, 'apply.html', {})
-    #HistoryForm是forms.py中定义的表单.这个的意思是history_form获取HistoryForm中的内容?它有什么用?
-    #personal_history = History.objects.all()#filter(user = User.username)
-    #History是models.py中的类名,与建立数据库有关,personal_history是数据库中的数据集合?
-    #它与history_form有什么联系?或者personal_history与history_form是通过models.py与forms.py联系的?
-    #return render_to_response("apply.html",locals())
-    #这个'history'是否是实例?
-    #if request.method=="POST":#/"GET":  这句话的用途是什么?
+    user_images = UserImage.objects.filter(user=request.user)
+    if len(user_images) > 0:
+        return render(request, 'apply.html', {})
+    else:
+        messages.error(request, '无法申请,请您上传个人照片和扫描件！')
+        return redirect('web:upload')
+
+
+def new_apply(request):
+    user_history=History.objects.filter(user=request.user,examine="未审核")
+    if len(user_history) == 0 :
+        new_history=History()
+        new_history.user=request.user
+        new_history.save()
+        messages.success(request, '申请成功!')
+        return redirect('web:apply')
+    else :
+        messages.error(request, '您的申请正在处理,请耐心等待！')
+        return redirect('web:apply')
+        
+def examine_allow(request):
+        allow_history.examine="审核通过"
+        allow_history.save()
+        return redirect('web:apply')
+   
+        
+
 
 @login_required
 def personal(request):
-    history_form=forms.HistoryForm()  
-    personal_historys=History.objects.filter(user = request.user)
-    return render(request, "personal.html",context={"personal_historys": personal_historys})
+    admin=User.objects.get(username="admin@123.com")
+    if admin==request.user:
+        return redirect('web:administrator')
+    else:
+        history_form=forms.HistoryForm()  
+        personal_historys=History.objects.filter(user = request.user)
+        return render(request, "personal.html",context={"personal_historys": personal_historys})
 
 
 
 def administrator(request):
-    history_form=forms.HistoryForm()   
-    admin_historys=History.objects.filter(examine = "未审核")
-    for history in admin_historys:
-        user=history.user
-        print(history.apply_time)
-        user_images = UserImage.objects.filter(user=user)
-        history.user_image = user_images[0]
-    return render(request, "administrator.html",context={"admin_historys": admin_historys})
+    admin=User.objects.get(username="admin@123.com")
+    if admin==request.user:
+        history_form=forms.HistoryForm()   
+        admin_historys=History.objects.filter(examine = "未审核")
+        for history in admin_historys:
+            user=history.user
+            user_images = UserImage.objects.filter(user=user)
+            history.user_image = user_images[0]
+        return render(request, "administrator.html",context={"admin_historys": admin_historys})
+    else :
+        messages.error(request, '您没有进入管理员界面的权限!')
+        return redirect('web:personal')
+    
     # history_form = HistoryForm(request.POST, instance=request.history)
     # admin_history=History.objects.all()
     # return render(request, 'administrator.html', {'history': admin_history})  
@@ -127,7 +155,7 @@ def change(request):
         if user_form.is_valid():
             user_form.save()
             messages.success(request, '修改成功！')
-            return redirect('web:personal')
+            return redirect('web:change')
         else:
             messages.error(request, '修改失败，请完善所有信息！')
             return redirect('web:change')
@@ -181,7 +209,7 @@ def upload_file(request):
         print('ok1')
         handle_uploaded_file(request.FILES['scanning_copy_file'],request.FILES['photo_file'], request.user.username, request.user)
         messages.success(request, '个人照片上传成功！')
-        return redirect('web:personal')
+        return redirect('web:upload')
 
 
 def upload(request):
