@@ -123,11 +123,15 @@ def cancel_examine(request):
     response_data = {'examine':user_history.examine}  
     return HttpResponse(json.dumps(response_data), content_type="application/json")  
 
+# def changecss(request):
+#     history_id_change=request.GET.get('change_history_id')
+#     user_history=History.objects.get(id=history_id_change)
+#     user=User.objects.get(username=user_history.username)
+#     personal_historys=History.objects.filter(user = user)
+#     response_data = {'personal_historys':personal_historys}
+#     return HttpResponse(json.dumps(response_data), content_type="application/json")  
+   
 
-def more(request):
-    user_history=History.objects.get(username=username_more)
-    user=history.user
-    return redirect('web:more')       
 
 
 @login_required
@@ -149,23 +153,15 @@ def administrator(request):
         admin_historys=History.objects.filter(examine = "未审核")
         for history in admin_historys:
             user=history.user
-            user_images = UserImage.objects.filter(user=user)
+            user_images = UserImage.objects.filter(user = user)
+            personal_historys=History.objects.filter(user = user)
             history.user_image = user_images[0]
+            history.personal_history = personal_historys[0]
         return render(request, "administrator.html",context={"admin_historys": admin_historys})
     else :
         messages.error(request, '您没有进入管理员界面的权限!')
         return redirect('web:personal')
     
-    # history_form = HistoryForm(request.POST, instance=request.history)
-    # admin_history=History.objects.all()
-    # return render(request, 'administrator.html', {'history': admin_history})  
-    # #if request.method=="POST":/"GET":
-    # history_form = HistoryForm(request.POST, instance=request.history)
-    # admin_history = History.objects.filter(examine = "未审核")
-    # #return render_to_response("administrator.html",locals())
-    # return render(request, 'administrator.html', {'history': admin_history})
-
-
 @login_required
 @transaction.atomic
 def change(request):

@@ -77,28 +77,21 @@
                                 <tr>
                                     <td align="center" class="biaoti" height="60">License申请记录</td>
                                 </tr>
-                                <tr>
-                                    <td align="right" height="25">2017.01.01-2017.08.01</td>
-                                </tr>
+                               
                             </table>
                             <table width="100%" border="1" cellspacing="1" cellpadding="4" bgcolor="#cccccc" class="tabtop13" align="center">
                                 <tr>
-                                    <td width="10%" class="btbg font-center titfont">序号</td>
-                                    <td width="15%" class="btbg font-center titfont">申请日期</td>
-                                    <td width="22%" class="btbg font-center titfont">激活码</td>
-                                    <td width="22%" class="btbg font-center titfont">SN号</td>
-                                    <td width="15%" class="btbg font-center titfont">有效期限</td>
-                                    <td width="16%" class="btbg font-center titfont">审核状态</td>
-
+                                    <td width="25%" class="btbg font-center titfont">申请日期</td>
+                                    <td width="25%" class="btbg font-center titfont">激活码</td>
+                                    <td width="25%" class="btbg font-center titfont">SN号</td>
+                                    <td width="25%" class="btbg font-center titfont">审核状态</td>
                                 </tr>
                                 {% for history in personal_historys %}
                                 <tr>
-                                    <td width="10%" class="font-center">{{history.id}}</td>
-                                    <td width="15%" class="font-center">{{history.apply_time}}</td>
-                                    <td width="22%" class="font-center">{{history.activation}}</td>
-                                    <td width="22%" class="font-center">{{history.SNnum}}</td>
-                                    <td width="15%" class="font-center">{{history.limit_time}}</td>
-                                    <td width="16%" class="font-center">{{history.examine}}</td>
+                                    <td width="25%" class="font-center">{{history.apply_time}}</td>
+                                    <td width="25%" class="font-center">{{history.activation}}</td>
+                                    <td width="25%" class="font-center">{{history.SNnum}}</td>
+                                    <td width="25%" class="font-center">{{history.examine}}</td>
                                 </tr>
                                 {% endfor %}
                             </table>

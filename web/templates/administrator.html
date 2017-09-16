@@ -81,36 +81,73 @@
                                     <td align="right" height="25">2017.01.01-2017.08.01</td>
                                 </tr>
                             </table>
+                            {% for history in admin_historys %}
                             <table width="100%" border="1" cellspacing="1" cellpadding="4" bgcolor="#cccccc" class="tabtop13" align="center">
                                 <tr>
-                                    <td width="5%" class="btbg font-center titfont">序号</td>
-                                    <td width="12%" class="btbg font-center titfont">申请日期</td>
-                                    <td width="12%" class="btbg font-center titfont">用户名</td>
+                                    <td width="11%" class="btbg font-center titfont">详情</td>
+                                    <td width="18%" class="btbg font-center titfont">申请日期</td>
                                     <td width="13%" class="btbg font-center titfont">真实姓名</td>
-                                    <td width="19%" class="btbg font-center titfont">个人照片</td>
-                                    <td width="19%" class="btbg font-center titfont">扫描件</td>
-                                    <td width="10%" class="btbg font-center titfont">审核状态</td>
-                                    <td width="10%" class="btbg font-center titfont">是否批准</td>
+                                    <td width="13%" class="btbg font-center titfont">单位</td>
+                                    <td width="13%" class="btbg font-center titfont">科室</td>
+                                    <td width="16%" class="btbg font-center titfont">审核状态</td>
+                                    
                                 </tr>
-                                {% for history in admin_historys %}
                                 <tr>
-                                    <td width="5%" class="btbg font-center">{{history.id}}</td>
-                                    <td width="12%" class="btbg font-center">{{history.apply_time}}</td>
-                                    <td width="12%" class="btbg font-center"><a href="#" id="more">{{history.user.username}}</a></td>
+                                    <td width="11%" class="btbg font-center"><button onclick="changecss({{history.id}})">详情</button></td>
+                                    <td width="18%" class="btbg font-center">{{history.apply_time}}</td>
                                     <td width="13%" class="btbg font-center">{{history.user.name}}</td>
-                                    <td width="19%" class="btbg font-center titfont"><img src={% static history.user_image.user_image_path %}></td>
-                                    <td width="19%" class="btbg font-center titfont"><img src={% static history.user_image.user_scanning_copy_path %}></td>
-                                    <td width="10%" class="btbg font-center" id='{{history.id}}'>{{history.examine}}</td>
-                                    <td width="10%" class="btbg font-center">
-                                    <button type="button" onclick="allow({{history.id}})" id="allow">批准</button> 
-                                    </br>
-                                    <button type="button" onclick="cancel({{history.id}})" id="cancel">取消</button>
-                                       
-                                       
+                                    <td width="13%" class="btbg font-center">{{history.user.unit}}</td>
+                                    <td width="13%" class="btbg font-center">{{history.user.office}}</td>
+                                    <td width="16%" class="btbg font-center" id='{{history.id}}'>{{history.examine}}</td>
+                                    
                                 </tr>
-                               {% endfor %}
                             </table>
+                            <div class="sr-only" id="hidden_css_{{history.id}}">
+                            <div class="col-md-6">
+                                <table width="100%" border="1" cellspacing="1" cellpadding="4" bgcolor="#cccccc" class="tabtop13" align="center">
+                                    <tr>
+                                        <td width="25%" class="btbg font-center titfont">申请日期</td>
+                                        <td width="25%" class="btbg font-center titfont">激活码</td>
+                                        <td width="25%" class="btbg font-center titfont">SN号</td>
+                                        <td width="25%" class="btbg font-center titfont">审核状态</td>
+                                    </tr>
+                                    {% for history in personal_historys %}
+                                    <tr>
+                                        <td width="25%" class="font-center">{{history.personal_historys.apply_time}}</td>
+                                        <td width="25%" class="font-center">{{history.personal_historys.activation}}</td>
+                                        <td width="25%" class="font-center">{{history.personal_historys.SNnum}}</td>
+                                        <td width="25%" class="font-center">{{history.personal_historys.examine}}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </table>
+                            </div>
+                            <div class="col-md-2">
+                                    <tr><td width="100%" class="btbg font-center titfont">是否批准</td></tr>
+                                    <tr><td width="100%" class="btbg font-center">
+                                            <button type="button" onclick="allow({{history.id}})" id="allow">批准</button>
+                                            </br>
+                                            <button type="button" onclick="cancel({{history.id}})" id="cancel">取消</button></td></tr>
+                            </div>
+                            <div class="col-md-4">
+                                <table width="100%" border="1" cellspacing="1" cellpadding="4" bgcolor="#cccccc" class="tabtop13" align="center">
+                                    <tr>
+                                        <td width="50%" class="btbg font-center titfont">工作证</td>
+                                        <td width="50%" class="btbg font-center titfont">协议扫描件</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="50%" class="font-center"><a href={% static history.user_image.user_image_path %}>工作证链接</a></td>
+                                        <td width="50%" class="font-center"><a href={% static history.user_image.user_scanning_copy_path %}>协议扫描件链接</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td width="50%" class="font-center"><img src={% static history.user_image.user_image_path %}></td>
+                                        <td width="50%" class="font-center"><img src={% static history.user_image.user_scanning_copy_path %}></td>
+                                    </tr>
+                                </table>
+                            </div>
+                            </div>
+                            {% endfor %}
                         </div>
+                   
                     </article>
 
                 </div>
@@ -143,7 +180,16 @@
 
     <script>
    
-       
+    function changecss(id) 
+    {
+        if (document.getElementById("hidden_css_"+id).className=="sr-only")
+        {
+        document.getElementById("hidden_css_"+id).className = "col-md-12";}
+        else if (document.getElementById("hidden_css_"+id).className=="col-md-12")
+        {
+             document.getElementById("hidden_css_"+id).className = "sr-only"; }
+    }  
+
     function allow(id)
     {
     $.getJSON("/allow_examine", { allow_history_id: id },function(result){ 
