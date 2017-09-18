@@ -97,16 +97,19 @@ def apply(request):
 
 def new_apply(request):
     user_history=History.objects.filter(user=request.user,examine="未审核")
+    SNnum_input=request.GET.get('SNnum')
+    print(SNnum_input)
     if len(user_history) == 0 :
         new_history=History()
         new_history.user=request.user
+        new_history.SNnum=SNnum_input
         new_history.save()
         messages.success(request, '申请成功!')
         return redirect('web:apply')
     else :
         messages.error(request, '您的申请正在处理,请耐心等待！')
         return redirect('web:apply')
-        
+
 def allow_examine(request):
     history_id_allow=request.GET.get('allow_history_id')
     user_history=History.objects.get(id=history_id_allow)
@@ -153,15 +156,18 @@ def administrator(request):
         admin_historys=History.objects.filter(examine = "未审核")
         for history in admin_historys:
             user=history.user
+            #print (user.name)
             user_images = UserImage.objects.filter(user = user)
             personal_historys=History.objects.filter(user = user)
+            #print(personal_historys[0].user.id)
             history.user_image = user_images[0]
-            history.personal_history = personal_historys[0]
+            history.personal_history = personal_historys
+            #print(admin_historys[1].personal_history[0].user)
         return render(request, "administrator.html",context={"admin_historys": admin_historys})
     else :
         messages.error(request, '您没有进入管理员界面的权限!')
         return redirect('web:personal')
-    
+
 @login_required
 @transaction.atomic
 def change(request):

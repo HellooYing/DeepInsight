@@ -93,12 +93,12 @@
                                     
                                 </tr>
                                 <tr>
-                                    <td width="11%" class="btbg font-center"><button onclick="changecss({{history.id}})">详情</button></td>
-                                    <td width="18%" class="btbg font-center">{{history.apply_time}}</td>
-                                    <td width="13%" class="btbg font-center">{{history.user.name}}</td>
-                                    <td width="13%" class="btbg font-center">{{history.user.unit}}</td>
-                                    <td width="13%" class="btbg font-center">{{history.user.office}}</td>
-                                    <td width="16%" class="btbg font-center" id='{{history.id}}'>{{history.examine}}</td>
+                                    <td width="11%" class="font-center"><button onclick="changecss({{history.id}})">详情</button></td>
+                                    <td width="18%" class="font-center">{{history.apply_time}}</td>
+                                    <td width="13%" class="font-center">{{history.user.name}}</td>
+                                    <td width="13%" class="font-center">{{history.user.unit}}</td>
+                                    <td width="13%" class="font-center">{{history.user.office}}</td>
+                                    <td width="16%" class="font-center" id='{{history.id}}'>{{history.examine}}</td>
                                     
                                 </tr>
                             </table>
@@ -111,22 +111,24 @@
                                         <td width="25%" class="btbg font-center titfont">SN号</td>
                                         <td width="25%" class="btbg font-center titfont">审核状态</td>
                                     </tr>
-                                    {% for history in personal_historys %}
+                                    {% for h in history.personal_history %}
                                     <tr>
-                                        <td width="25%" class="font-center">{{history.personal_historys.apply_time}}</td>
-                                        <td width="25%" class="font-center">{{history.personal_historys.activation}}</td>
-                                        <td width="25%" class="font-center">{{history.personal_historys.SNnum}}</td>
-                                        <td width="25%" class="font-center">{{history.personal_historys.examine}}</td>
+                                        <td width="25%" class="font-center">{{h.user.name}}</td>
+                                        <td width="25%" class="font-center">{{h.activation}}</td>
+                                        <td width="25%" class="font-center">{{h.SNnum}}</td>
+                                        <td width="25%" class="font-center">{{h.examine}}</td>
                                     </tr>
                                     {% endfor %}
                                 </table>
                             </div>
                             <div class="col-md-2">
+
+                                <table width="100%" border="1" cellspacing="1" cellpadding="4" bgcolor="#cccccc" class="tabtop13" align="center">
                                     <tr><td width="100%" class="btbg font-center titfont">是否批准</td></tr>
                                     <tr><td width="100%" class="btbg font-center">
                                             <button type="button" onclick="allow({{history.id}})" id="allow">批准</button>
                                             </br>
-                                            <button type="button" onclick="cancel({{history.id}})" id="cancel">取消</button></td></tr>
+                                            <button type="button" onclick="cancel({{history.id}})" id="cancel">取消</button></td></tr></table>
                             </div>
                             <div class="col-md-4">
                                 <table width="100%" border="1" cellspacing="1" cellpadding="4" bgcolor="#cccccc" class="tabtop13" align="center">
@@ -155,11 +157,12 @@
                     
                                     <div class="aside-widget">
                                         <header>
-                                            <h3>其他</h3>
+                                            <h3>功能区</h3>
                                         </header>
                                         <div class="body">
                                             <ul class="clean-list">
                                                 <li><a href="/">统计分析</a></li>
+                                                <li><a href="/">申请审核</a></li>
                                                 
                                             </ul>
                                         </div>
@@ -187,7 +190,7 @@
         document.getElementById("hidden_css_"+id).className = "col-md-12";}
         else if (document.getElementById("hidden_css_"+id).className=="col-md-12")
         {
-             document.getElementById("hidden_css_"+id).className = "sr-only"; }
+        document.getElementById("hidden_css_"+id).className = "sr-only";}
     }  
 
     function allow(id)
