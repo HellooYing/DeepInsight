@@ -104,11 +104,15 @@ def new_apply(request):
         new_history.user=request.user
         new_history.SNnum=SNnum_input
         new_history.save()
-        messages.success(request, '申请成功!')
-        return redirect('web:apply')
-    else :
-        messages.error(request, '您的申请正在处理,请耐心等待！')
-        return redirect('web:apply')
+    #     messages.success(request, '申请成功!')
+    #     return redirect('web:apply')
+    # else :
+    #     messages.error(request, '您的申请正在处理,请耐心等待！')
+    #     return redirect('web:apply')
+    user_history2=History.objects.filter(user=request.user,SNnum=SNnum_input,examine="未审核")
+    length_no_examine=len(user_history2)
+    response_data = {'len':length_no_examine}  #如果申请成功就是1,申请失败则是0
+    return HttpResponse(json.dumps(response_data), content_type="application/json") 
 
 def allow_examine(request):
     history_id_allow=request.GET.get('allow_history_id')

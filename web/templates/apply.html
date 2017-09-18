@@ -78,6 +78,9 @@
                             <div class="form-group">
                                 <button onclick="SNnuminput()" class="btn btn-primary" ><h4>申请</h4></button>
                             </div>
+                            <h3 id="hidden_css_succeed" class="sr-only">申请成功!</h3>
+                            <h3 id="hidden_css_fault" class="sr-only">您的申请正在审核,请稍候。您也可以点<a href="#">此链接</a>撤销申请……</h3>
+                            <h3 id="hidden_css_error" class="sr-only">出现了未知的错误,请联系管理员</h3>
                         </div>
                     </article>
                 </div>
@@ -118,7 +121,23 @@
         // location.href="/personal/new_apply"
         var SNnum=document.getElementById("SNnum");
         console.log(SNnum.value)
-        $.getJSON("/personal/new_apply", { SNnum: SNnum.value });
+        $.getJSON("/personal/new_apply", { SNnum: SNnum.value },function(result){ 
+        if(result.len==1){
+            document.getElementById("hidden_css_succeed").className = " ";
+            document.getElementById("hidden_css_fault").className = "sr-only";
+            document.getElementById("hidden_css_error").className = "sr-only";
+            }
+        else if(result.len==0){
+            document.getElementById("hidden_css_succeed").className = "sr-only";
+            document.getElementById("hidden_css_fault").className = " ";
+            document.getElementById("hidden_css_error").className = "sr-only";
+            }
+        else{
+            document.getElementById("hidden_css_succeed").className = "sr-only";
+            document.getElementById("hidden_css_fault").className = "sr-only";
+            document.getElementById("hidden_css_error").className = " ";
+        }
+        });
         }
     </script>
 </body>
