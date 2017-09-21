@@ -19,7 +19,7 @@ import json
 
 def login(request):
     if request.method == 'GET':
-        return render(request, 'login1.html', context={
+        return render(request, 'login.html', context={
             'form': LoginForm(),
         })
     else:
@@ -30,14 +30,14 @@ def login(request):
             redirect_to = request.GET.get(key='next', default=reverse('web:personal'))  # 重定向到要访问的地址，没有的话重定向到首页
             return HttpResponseRedirect(redirect_to)
         else:  # 认证失败
-            return render(request, 'login1.html', context={
+            return render(request, 'login.html', context={
                 'form': form
             })
 
 
 def signup(request):
     if request.method == 'GET':
-        return render(request, 'signup1.html', context={'form': RegisterForm()})
+        return render(request, 'signup.html', context={'form': RegisterForm()})
     else:
         print(request.POST.get('username'))
         form = RegisterForm(request.POST)
@@ -51,7 +51,7 @@ def signup(request):
                 url = reverse('web:signup')
                 return HttpResponseRedirect(url)
         else:
-            return render(request, 'signup1.html', context={'form': form})
+            return render(request, 'signup.html', context={'form': form})
 
 
 def index(request):
@@ -91,7 +91,7 @@ def apply(request):
     if len(user_images) > 0:
         return render(request, 'apply.html', {})
     else:
-        messages.error(request, '无法申请,请您上传个人照片和扫描件！')
+        messages.error(request, '无法申请,请您上传工作证和扫描件！')
         return redirect('web:upload')
 
 
@@ -113,6 +113,21 @@ def new_apply(request):
     length_no_examine=len(user_history2)
     response_data = {'len':length_no_examine}  #如果申请成功就是1,申请失败则是0
     return HttpResponse(json.dumps(response_data), content_type="application/json") 
+
+def new_apply_delete(request):
+    user_history_delete=History.objects.filter(user=request.user,examine="未审核")
+    if len(user_history_delete) == 1 :
+        user_history_delete.delete()
+        messages.success(request, '撤销成功！')
+        return redirect('web:apply')
+    elif len(user_history_delete) == 0 :
+        messages.error(request, '您没有可撤销的申请!')
+        return redirect('web:apply')
+    else :
+        messages.error(request, '出现未知错误,请联系管理员')
+        return redirect('web:apply')
+        
+
 
 def allow_examine(request):
     history_id_allow=request.GET.get('allow_history_id')
@@ -162,7 +177,7 @@ def administrator(request):
             user=history.user
             #print (user.name)
             user_images = UserImage.objects.filter(user = user)
-            personal_historys=History.objects.filter(user = user)
+            personal_historys=History.objects.filter(user = user,examine="审核通过"or"未通过")
             #print(personal_historys[0].user.id)
             history.user_image = user_images[0]
             history.personal_history = personal_historys
@@ -235,7 +250,7 @@ def upload_file(request):
     else:
         print('ok1')
         handle_uploaded_file(request.FILES['scanning_copy_file'],request.FILES['photo_file'], request.user.username, request.user)
-        messages.success(request, '个人照片上传成功！')
+        messages.success(request, '工作证上传成功！')
         return redirect('web:upload')
 
 

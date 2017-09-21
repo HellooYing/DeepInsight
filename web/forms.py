@@ -62,7 +62,9 @@ class RegisterForm(UserCreationForm):
         self.fields['number'] = forms.CharField(label="工号：",
                                                   widget=widgets.TextInput(
                                                       attrs={'placeholder': "工号","required":True}))
-
+        self.fields['province'] = forms.CharField(label="省份或直辖市：",
+                                                  widget=widgets.TextInput(
+                                                      attrs={'placeholder': "省份","required":True}))
 
 
     class Meta:

@@ -48,13 +48,30 @@
                     <span class="separator">&#x2F;</span>
                     <a href="#">申请License</a>
                     {% autoescape off %}{% bootstrap_messages %}{% endautoescape %}
+                </br>
+                
+                        <div id="hidden_css_succeed" class="sr-only">
+                      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                       本次申请成功！
+                        </div>
+                        <div id="hidden_css_fault" class="sr-only">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            您的申请正在审核,请稍候。
+                        </div>
+                        <div id="hidden_css_error" class="sr-only">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            出现了未知的错误,请联系管理员
+                        </div>
+                  
                 </div>
                 <div class="clean-breadcrumb2"><a href="/personal">欢迎您！  {{user.name}}</a>
                     <span class="separator">&#x2F;</span>
                      <a href="/logout">注销</a></div>
-
+                
+                    
+<!-- 
                 <div class="clean-searchbox">
-                    <form action="#" method="get" accept-charset="utf-8">
+                    <form action="#" method="get" accept-charset="utf-8"> -->
 
 
                     </form>
@@ -68,7 +85,7 @@
             <div class="row">
                 <div class="col-md-8 blog-main">
                     <article class="blog-post">
-
+                           
                         <div class="body">
                             <h1>申请License</h1>
                             <h3>请输入您的SN号:</h3>
@@ -78,9 +95,7 @@
                             <div class="form-group">
                                 <button onclick="SNnuminput()" class="btn btn-primary" ><h4>申请</h4></button>
                             </div>
-                            <h3 id="hidden_css_succeed" class="sr-only">申请成功!</h3>
-                            <h3 id="hidden_css_fault" class="sr-only">您的申请正在审核,请稍候。您也可以点<a href="#">此链接</a>撤销申请……</h3>
-                            <h3 id="hidden_css_error" class="sr-only">出现了未知的错误,请联系管理员</h3>
+                            如果sn号输入失误,可以<a href="/personal/new_apply_delete">点击此处</a>撤销申请
                         </div>
                     </article>
                 </div>
@@ -95,7 +110,7 @@
                                                          <li><a href="/personal">个人中心</a></li>
                                                          <li><a href="/personal/change/">个人信息修改</a></li>
                                                          <li><a href="/personal/passwordChange">修改密码</a></li>
-                                                         <li><a href="/personal/upload">上传个人照片与协议扫描件</a></li>
+                                                         <li><a href="/personal/upload">上传工作证与协议扫描件</a></li>
                                                          <li><a href="/personal/apply">申请License</a></li>
                                                         </ul>
                                                 </div>
@@ -120,22 +135,21 @@
         {
         // location.href="/personal/new_apply"
         var SNnum=document.getElementById("SNnum");
-        console.log(SNnum.value)
         $.getJSON("/personal/new_apply", { SNnum: SNnum.value },function(result){ 
         if(result.len==1){
-            document.getElementById("hidden_css_succeed").className = " ";
+            document.getElementById("hidden_css_succeed").className = "alert alert-success alert-dismissable";
             document.getElementById("hidden_css_fault").className = "sr-only";
             document.getElementById("hidden_css_error").className = "sr-only";
             }
         else if(result.len==0){
             document.getElementById("hidden_css_succeed").className = "sr-only";
-            document.getElementById("hidden_css_fault").className = " ";
+            document.getElementById("hidden_css_fault").className = "alert alert-danger alert-dismissable";
             document.getElementById("hidden_css_error").className = "sr-only";
             }
         else{
             document.getElementById("hidden_css_succeed").className = "sr-only";
             document.getElementById("hidden_css_fault").className = "sr-only";
-            document.getElementById("hidden_css_error").className = " ";
+            document.getElementById("hidden_css_error").className = "alert alert-danger alert-dismissable";
         }
         });
         }

@@ -103,49 +103,44 @@
                                 </tr>
                             </table>
                             <div class="sr-only" id="hidden_css_{{history.id}}">
-                            <div class="col-md-6">
+                            <div class="col-md-9">
                                 <table width="100%" border="1" cellspacing="1" cellpadding="4" bgcolor="#cccccc" class="tabtop13" align="center">
                                     <tr>
-                                        <td width="25%" class="btbg font-center titfont">申请日期</td>
-                                        <td width="25%" class="btbg font-center titfont">激活码</td>
-                                        <td width="25%" class="btbg font-center titfont">SN号</td>
-                                        <td width="25%" class="btbg font-center titfont">审核状态</td>
+                                        <td width="15%" class="btbg font-center titfont">申请日期</td>
+                                        <td width="15%" class="btbg font-center titfont">激活码</td>
+                                        <td width="15%" class="btbg font-center titfont">SN号</td>
+                                        <td width="15%" class="btbg font-center titfont">审核状态</td>
+                                        <td width="15%" class="btbg font-center titfont">工作证</td>
+                                        <td width="15%" class="btbg font-center titfont">协议扫描件</td>
                                     </tr>
                                     {% for h in history.personal_history %}
                                     <tr>
-                                        <td width="25%" class="font-center">{{h.user.name}}</td>
-                                        <td width="25%" class="font-center">{{h.activation}}</td>
-                                        <td width="25%" class="font-center">{{h.SNnum}}</td>
-                                        <td width="25%" class="font-center">{{h.examine}}</td>
+                                        <td width="15%" class="font-center">{{h.apply_time}}</td>
+                                        <td width="15%" class="font-center">{{h.activation}}</td>
+                                        <td width="15%" class="font-center">{{h.SNnum}}</td>
+                                        <td width="15%" class="font-center">{{h.examine}}</td>
+                                        <td width="15%" class="font-center"><a href={% static history.user_image.user_image_path %}>工作证链接</a></td>
+                                        <td width="15%" class="font-center"><a href={% static history.user_image.user_scanning_copy_path %}>协议扫描件链接</a></td>
                                     </tr>
                                     {% endfor %}
                                 </table>
+                            </br>
                             </div>
+                            
                             <div class="col-md-2">
-
                                 <table width="100%" border="1" cellspacing="1" cellpadding="4" bgcolor="#cccccc" class="tabtop13" align="center">
                                     <tr><td width="100%" class="btbg font-center titfont">是否批准</td></tr>
-                                    <tr><td width="100%" class="btbg font-center">
+                                    <tr><td width="100%" class="font-center">
                                             <button type="button" onclick="allow({{history.id}})" id="allow">批准</button>
                                             </br>
                                             <button type="button" onclick="cancel({{history.id}})" id="cancel">取消</button></td></tr></table>
-                            </div>
-                            <div class="col-md-4">
-                                <table width="100%" border="1" cellspacing="1" cellpadding="4" bgcolor="#cccccc" class="tabtop13" align="center">
-                                    <tr>
-                                        <td width="50%" class="btbg font-center titfont">工作证</td>
-                                        <td width="50%" class="btbg font-center titfont">协议扫描件</td>
-                                    </tr>
-                                    <tr>
-                                        <td width="50%" class="font-center"><a href={% static history.user_image.user_image_path %}>工作证链接</a></td>
-                                        <td width="50%" class="font-center"><a href={% static history.user_image.user_scanning_copy_path %}>协议扫描件链接</a></td>
-                                    </tr>
-                                    <tr>
+                                        </div>
+                            
+                                    <!-- <tr>
                                         <td width="50%" class="font-center"><img src={% static history.user_image.user_image_path %}></td>
                                         <td width="50%" class="font-center"><img src={% static history.user_image.user_scanning_copy_path %}></td>
-                                    </tr>
-                                </table>
-                            </div>
+                                    </tr> -->
+                              
                             </div>
                             {% endfor %}
                         </div>
@@ -195,13 +190,13 @@
 
     function allow(id)
     {
-    $.getJSON("/allow_examine", { allow_history_id: id },function(result){ 
+    $.getJSON("/allow_examine", { allow_history_id: id },function(result){
     $("#"+id).text(result.examine);
     });
     }
     function cancel(id)
     {
-    $.getJSON("/cancel_examine", { cancel_history_id: id },function(result){ 
+    $.getJSON("/cancel_examine", { cancel_history_id: id },function(result){
     $("#"+id).text(result.examine);
     });
     }

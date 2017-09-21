@@ -26,12 +26,12 @@ class User(AbstractUser):
     post = models.CharField('职务', max_length=50, null=False)
     professional = models.CharField('职称', max_length=50, null=False)
     number = models.CharField('工号', max_length=50, null=False)
-    isadmin = models.BooleanField("是否为管理员", default=False)
+    province = models.CharField('省份或直辖市', max_length=50, null=False)
 
 
 class UserImage(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL)
-    user_image_path = models.CharField('个人照片路径', max_length=50, unique=True, null=False)
+    user_image_path = models.CharField('工作证路径', max_length=50, unique=True, null=False)
     user_scanning_copy_path = models.CharField('扫面件路径', max_length=50, unique=True, null=False,default='')
 
 

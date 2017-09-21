@@ -82,15 +82,15 @@
                             <table width="100%" border="1" cellspacing="1" cellpadding="4" bgcolor="#cccccc" class="tabtop13" align="center">
                                 <tr>
                                     <td width="25%" class="btbg font-center titfont">申请日期</td>
-                                    <td width="25%" class="btbg font-center titfont">激活码</td>
                                     <td width="25%" class="btbg font-center titfont">SN号</td>
+                                    <td width="25%" class="btbg font-center titfont">激活码</td>
                                     <td width="25%" class="btbg font-center titfont">审核状态</td>
                                 </tr>
                                 {% for history in personal_historys %}
                                 <tr>
                                     <td width="25%" class="font-center">{{history.apply_time}}</td>
-                                    <td width="25%" class="font-center">{{history.activation}}</td>
                                     <td width="25%" class="font-center">{{history.SNnum}}</td>
+                                    <td width="25%" class="font-center">{{history.activation}}</td>
                                     <td width="25%" class="font-center">{{history.examine}}</td>
                                 </tr>
                                 {% endfor %}
@@ -109,7 +109,7 @@
                                                          <li><a href="/personal">个人中心</a></li>
                                                          <li><a href="/personal/change/">个人信息修改</a></li>
                                                          <li><a href="/personal/passwordChange">修改密码</a></li>
-                                                         <li><a href="/personal/upload">上传个人照片与协议扫描件</a></li>
+                                                         <li><a href="/personal/upload">上传工作证与协议扫描件</a></li>
                                                          <li><a href="/personal/apply">申请License</a></li>
                                                         </ul>
                                                 </div>

@@ -45,7 +45,7 @@
             <div class="clean-breadcrumb">
                 <a href="/">首页</a>
                 <span class="separator">&#x2F;</span>
-                <a href="#">上传个人照片与协议扫描件</a>
+                <a href="#">上传工作证与协议扫描件</a>
                 {% autoescape off %}{% bootstrap_messages %}{% endautoescape %}
             </div>
             <div class="clean-breadcrumb2"><a href="/personal">欢迎您！  {{user.name}}</a>
@@ -64,11 +64,11 @@
                 <article class="blog-post">
 
                     <div class="body">
-                        <h2>上传个人照片与协议扫描件</h2>
+                        <h2>上传工作证与协议扫描件</h2>
                         <br/>
                         <form method="post" enctype="multipart/form-data" class="upload_photo">
                              {% csrf_token %}
-                            <label for="personal_photo">个人照片</label>
+                            <label for="personal_photo">工作证</label>
                             <input type="file" name="photo_file" accept="image/*" required/>
                             <br/>
                             <label for="xieyi_photo">协议扫描件</label>
@@ -100,7 +100,7 @@
                             <li><a href="/personal">个人中心</a></li>
                             <li><a href="/personal/change/">个人信息修改</a></li>
                             <li><a href="/personal/passwordChange">修改密码</a></li>
-                            <li><a href="/personal/upload">上传个人照片与协议扫描件</a></li>
+                            <li><a href="/personal/upload">上传工作证与协议扫描件</a></li>
                             <li><a href="/personal/apply">申请License</a></li>
                         </ul>
                     </div>
