@@ -77,41 +77,39 @@
                     <form method="post" role="form" >
                         {% csrf_token %}
 
-
+                    </br></br>
                                 <div class="form-group">
-                                        <label for="name" class="col-md-3 control-label changemargin">真实姓名:</label>
-                                    <input type="text" class="col-md-9 form-control inputpadding" id="name" name="name"
-                                           value="{{user.name}}" required title>
+                                        <label for="name">真实姓名:  </label>
+                                   <input type="text"  id="name" name="name"  value="{{user.name}}" required title>
                                 </div>
-                                <div class="form-group">
+                                <!-- <div class="form-group">
                                     <label for="unit" class="col-md-3 control-label changemargin">单位:</label>
                                     <input type="text" class="col-md-9 form-control inputpadding" id="unit" name="unit"
                                            value="{{user.unit}}" required title>
+                                </div> -->
+                                <div class="form-group">
+                                    <label for="unit">单位:    </label>
+                                    <input type="text" id="unit" class="changemargin" name="unit" value="{{user.unit}}" required title>
                                 </div>
                                 <div class="form-group">
-                                    <label for="office" class="col-md-3 control-label changemargin">科室:</label>
-                                    <input type="text" class="col-md-9 form-control inputpadding" id="office" name="office"
-                                           value="{{user.office}}" required title>
+                                    <label for="office">科室:    </label>
+                                    <input type="text" id="office" name="office" class="changemargin" value="{{user.office}}" required title>
                                 </div>
                                 <div class="form-group">
-                                    <label for="post" class="col-md-3 control-label changemargin">职务:</label>
-                                    <input type="text" class="col-md-9 form-control inputpadding" id="post" name="post"
-                                           value="{{user.post}}" required title>
+                                    <label for="post">职务:    </label>
+                                    <input type="text" id="post" name="post" class="changemargin" value="{{user.post}}" required title>
                                 </div>
                                 <div class="form-group">
-                                    <label for="professional" class="col-md-3 control-label changemargin">职称:</label>
-                                    <input type="text" class="col-md-9 form-control inputpadding" id="professional" name="professional"
-                                           value="{{user.professional}}" required title>
+                                    <label for="professional">职称:    </label>
+                                    <input type="text" id="professional" name="professional" class="changemargin" value="{{user.professional}}" required title>
                                 </div>
                                 <div class="form-group">
-                                    <label for="number" class="col-md-3 control-label changemargin">工号:</label>
-                                    <input type="text" class="col-md-9 form-control inputpadding" id="number" name="number"
-                                           value="{{user.number}}" required title>
+                                    <label for="number">工号:    </label>
+                                    <input type="text" id="number" name="number" class="changemargin" value="{{user.number}}" required title>
                                 </div>
                                 <div class="form-group">
-                                        <label for="province" class="col-md-4 control-label changemargin">省份或直辖市:</label>
-                                        <input type="text" class="col-md-9 form-control inputpadding" id="province" name="province"
-                                               value="{{user.province}}" required title>
+                                        <label for="province">省份:</label>
+                                        <input type="text" id="province"  class="changemargin" name="province" value="{{user.province}}" required title>
                                 </div>
                             </br>
                                 <div class="form-group">

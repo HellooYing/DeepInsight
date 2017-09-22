@@ -35,13 +35,7 @@
                     <img src="{% static "images/logo2.png" %} ">
                 </a>
             </div>
-            {% if request.user.is_authenticated %}
-            <div class="login"> <a href="/logout">注销</a></div>
-            <div class="signup"><a href="/personal">欢迎您！  {{user.name}}</a></div>
-                 {% else %}
-            <div class="signup"><a href="/signup">注册</a></div>
-            <div class="login"><a href="/login">登录</a></div>
-            {% endif %}
+           
         </div>
  
         <div class="widewrapper subheader">
@@ -52,7 +46,15 @@
                     <a href="#">DeepInsight介绍</a>
 
                 </div>
-
+                {% if request.user.is_authenticated %}
+                <div class="clean-breadcrumb2"><a href="/personal">欢迎您！  {{user.name}}</a>
+                    <span class="separator">&#x2F;</span>
+                     <a href="/logout">注销</a></div>
+                     {% else %}
+                     <div class="clean-breadcrumb2"><a href="/signup">注册</a>
+                        <span class="separator">&#x2F;</span>
+                         <a href="/login">登录</a></div>
+                         {% endif %}
 
                 <div class="clean-searchbox">
                     <form action="#" method="get" accept-charset="utf-8">

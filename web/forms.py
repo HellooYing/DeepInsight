@@ -34,7 +34,7 @@ class RegisterForm(UserCreationForm):
         
         self.fields['username'] = forms.EmailField(label="邮箱：",
                                                   widget=widgets.EmailInput(
-                                                      attrs={'placeholder': "邮箱","required":True}))
+                                                      attrs={'placeholder': "邮箱","required":True,'type':'text'}))
         self.fields['phone'] = forms.CharField(label="手机号码：",
                                                   widget=widgets.TextInput(
                                                       attrs={'placeholder': "手机号码", "required": True}))
