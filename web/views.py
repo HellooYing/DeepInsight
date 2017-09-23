@@ -107,7 +107,6 @@ def new_apply(request):
         for_activation_history=History.objects.get(user=request.user,examine="未审核",SNnum=SNnum_input)
         a=str(for_activation_history.id)
         cur_path = os.path.abspath(os.curdir)
-        print(a)
         path = cur_path + r'\web\static\activation\history_id_'+a
         os.mkdir(path)
     #     messages.success(request, '申请成功!')
@@ -123,6 +122,11 @@ def new_apply(request):
 def new_apply_delete(request):
     user_history_delete=History.objects.filter(user=request.user,examine="未审核")
     if len(user_history_delete) == 1 :
+        for_activation_history=History.objects.get(user=request.user,examine="未审核")
+        a=str(for_activation_history.id)
+        cur_path = os.path.abspath(os.curdir)
+        path = cur_path + r'\web\static\activation\history_id_'+a
+        os.rmdir(path)
         user_history_delete.delete()
         messages.success(request, '撤销成功！')
         return redirect('web:apply')
