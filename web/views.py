@@ -104,6 +104,12 @@ def new_apply(request):
         new_history.user=request.user
         new_history.SNnum=SNnum_input
         new_history.save()
+        for_activation_history=History.objects.get(user=request.user,examine="未审核",SNnum=SNnum_input)
+        a=str(for_activation_history.id)
+        cur_path = os.path.abspath(os.curdir)
+        print(a)
+        path = cur_path + r'\web\static\activation\history_id_'+a
+        os.mkdir(path)
     #     messages.success(request, '申请成功!')
     #     return redirect('web:apply')
     # else :
