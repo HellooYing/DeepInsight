@@ -155,16 +155,6 @@ def cancel_examine(request):
     response_data = {'examine':user_history.examine}  
     return HttpResponse(json.dumps(response_data), content_type="application/json")  
 
-# def changecss(request):
-#     history_id_change=request.GET.get('change_history_id')
-#     user_history=History.objects.get(id=history_id_change)
-#     user=User.objects.get(username=user_history.username)
-#     personal_historys=History.objects.filter(user = user)
-#     response_data = {'personal_historys':personal_historys}
-#     return HttpResponse(json.dumps(response_data), content_type="application/json")  
-   
-
-
 
 @login_required
 def personal(request):
@@ -175,7 +165,6 @@ def personal(request):
         history_form=forms.HistoryForm()  
         personal_historys=History.objects.filter(user = request.user)
         return render(request, "personal.html",context={"personal_historys": personal_historys})
-
 
 
 def administrator(request):
@@ -196,6 +185,26 @@ def administrator(request):
     else :
         messages.error(request, '您没有进入管理员界面的权限!')
         return redirect('web:personal')
+
+def administrator1(request):
+    admin=User.objects.get(username="admin@123.com")
+    if admin==request.user:
+        history_form=forms.HistoryForm()   
+        admin_historys=History.objects.filter(examine = "未审核")
+        for history in admin_historys:
+            user=history.user
+            #print (user.name)
+            user_images = UserImage.objects.filter(user = user)
+            personal_historys=History.objects.filter(user = user,examine="审核通过"or"未通过")
+            #print(personal_historys[0].user.id)
+            history.user_image = user_images[0]
+            history.personal_history = personal_historys
+            #print(admin_historys[1].personal_history[0].user)
+        return render(request, "administrator1.html",context={"admin_historys": admin_historys})
+    else :
+        messages.error(request, '您没有进入管理员界面的权限!')
+        return redirect('web:personal')
+
 
 @login_required
 @transaction.atomic

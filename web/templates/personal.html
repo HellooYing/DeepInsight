@@ -90,7 +90,9 @@
                                 <tr>
                                     <td width="25%" class="font-center">{{history.apply_time}}</td>
                                     <td width="25%" class="font-center">{{history.SNnum}}</td>
-                                    <td width="25%" class="font-center">{{history.activation}}</td>
+                                    <td width="25%" class="font-center">
+                                            <a style="color:#255E95;TEXT-DECORATION: underline;" href="../static/activation/history_id_{{history.id}}/1.txt" download="1.txt">点击下载</a>
+                                            </td>
                                     <td width="25%" class="font-center">{{history.examine}}</td>
                                 </tr>
                                 {% endfor %}

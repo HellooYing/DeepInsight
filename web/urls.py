@@ -16,11 +16,13 @@ urlpatterns = [
     url(r'^personal/apply/', views.apply,name='apply'),
     url(r'^personal/change/', views.change, name='change'),
     url(r'^administrator/$', views.administrator, name='administrator'),
+    url(r'^administrator1/$', views.administrator1, name='administrator1'),
     url(r'^personal/passwordChange/', views.password_change,name='passwordChange'),
     url(r'^personal/upload/', views.upload_file,name='upload'),
     url(r'^personal/new_apply/', views.new_apply,name='new_apply'),
     url(r'^personal/new_apply_delete/', views.new_apply_delete,name='new_apply_delete'),
     url(r'^allow_examine/', views.allow_examine,name='allow_examine'),
     url(r'^cancel_examine/', views.cancel_examine,name='cancel_examine'),
+    # url(r'^check/', views.check,name='check'),
     url(r'^logout', views.logout),
 ]
