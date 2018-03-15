@@ -15,6 +15,8 @@ from license.settings import BASE_DIR
 from web.forms import RegisterForm, LoginForm, UserChangeForm
 from django.http import HttpResponse, HttpResponseRedirect
 import json
+import operator
+import shutil
 
 
 def login(request):
@@ -39,7 +41,6 @@ def signup(request):
     if request.method == 'GET':
         return render(request, 'signup.html', context={'form': RegisterForm()})
     else:
-        print(request.POST.get('username'))
         form = RegisterForm(request.POST)
         if form.is_valid():  # RegisterForm继承了UserCreationForm， 会完成用户密码强度检查，用户是否存在的验证
             try:
@@ -74,7 +75,8 @@ def download(request):
 def contact(request):
     return render(request, 'contact.html', {})
 
-
+def map(request):
+    return render(request, 'map.html', {})
 def user(request):
     return render(request, 'user.html', {})
 
@@ -98,7 +100,7 @@ def apply(request):
 def new_apply(request):
     user_history=History.objects.filter(user=request.user,examine="未审核")
     SNnum_input=request.GET.get('SNnum')
-    print(SNnum_input)
+   
     if len(user_history) == 0 :
         new_history=History()
         new_history.user=request.user
@@ -126,7 +128,7 @@ def new_apply_delete(request):
         a=str(for_activation_history.id)
         cur_path = os.path.abspath(os.curdir)
         path = cur_path + r'\web\static\activation\history_id_'+a
-        os.rmdir(path)
+        shutil.rmtree(path)
         user_history_delete.delete()
         messages.success(request, '撤销成功！')
         return redirect('web:apply')
@@ -152,7 +154,7 @@ def cancel_examine(request):
     user_history=History.objects.get(id=history_id_cancel)
     user_history.examine="未通过"
     user_history.save()
-    response_data = {'examine':user_history.examine}  
+    response_data = {'examine':user_history.examine}
     return HttpResponse(json.dumps(response_data), content_type="application/json")  
 
 
@@ -276,9 +278,12 @@ def upload_file(request):
 def upload(request):
     return render(request, 'upload.html', {})
 
-
-
-
+def user1(request):
+    return render(request, 'user.1.html', {})
+def statistics(request):
+    return render(request, 'statistics.html', {})
+def statistics1(request):
+    return render(request, 'statistics1.html', {})
 
 def edit_action(request):
     pass
@@ -288,3 +293,322 @@ def logout(request):
     auth.logout(request)
     redirect_to = '/'
     return HttpResponseRedirect(redirect_to)
+
+def mapexam(request):
+    LNUser=User.objects.filter(province="辽宁"or"辽宁省")
+    LN=len(LNUser)
+    HLJUser=User.objects.filter(province="黑龙江"or"黑龙江省")
+    HLJ=len(HLJUser)
+    JLUser=User.objects.filter(province="吉林"or"吉林省")
+    JL=len(JLUser)
+    JSUser=User.objects.filter(province="江苏"or"江苏省")
+    JS=len(JSUser)
+    SDUser=User.objects.filter(province="山东"or"山东省")
+    SD=len(SDUser)
+    AHUser=User.objects.filter(province="安徽"or"安徽省")
+    AH=len(AHUser)
+    HBUser=User.objects.filter(province="河北"or"河北省")
+    HB=len(HBUser)
+    HNUser=User.objects.filter(province="河南"or"河南省")
+    HN=len(HNUser)
+    HUBUser=User.objects.filter(province="湖北"or"湖北省")
+    HUB=len(HUBUser)
+    HUNUser=User.objects.filter(province="湖南"or"湖南省")
+    HUN=len(HUNUser)
+    JXUser=User.objects.filter(province="江西"or"江西省")
+    JX=len(JXUser)
+    SXUser=User.objects.filter(province="陕西"or"陕西省")
+    SX=len(SXUser)
+    SHXUser=User.objects.filter(province="山西"or"山西省")
+    SHX=len(SHXUser)
+    SCUser=User.objects.filter(province="四川"or"四川省")
+    SC=len(SCUser)
+    QHUser=User.objects.filter(province="青海"or"青海省")
+    QH=len(QHUser)
+    HAINUser=User.objects.filter(province="海南"or"海南省")
+    HAIN=len(HAINUser)
+    GDUser=User.objects.filter(province="广东"or"广东省")
+    GD=len(GDUser)
+    GZUser=User.objects.filter(province="贵州"or"贵州省")
+    GZ=len(GZUser)
+    ZJUser=User.objects.filter(province="浙江"or"浙江省")
+    ZJ=len(ZJUser)
+    FJUser=User.objects.filter(province="福建"or"福建省")
+    FJ=len(FJUser)
+    TWUser=User.objects.filter(province="台湾"or"台湾省")
+    TW=len(TWUser)
+    GSUser=User.objects.filter(province="甘肃"or"甘肃省")
+    GS=len(GSUser)
+    YNUser=User.objects.filter(province="云南"or"云南省")
+    YN=len(YNUser)
+    NMGUser=User.objects.filter(province="内蒙"or"内蒙古"or"内蒙古自治区")
+    NMG=len(NMGUser)
+    NXUser=User.objects.filter(province="宁夏"or"宁夏回族自治区")
+    NX=len(NXUser)
+    XJUser=User.objects.filter(province="新疆"or"新疆维吾尔族自治区")
+    XJ=len(XJUser)
+    GXUser=User.objects.filter(province="广西"or"广西壮族自治区")
+    GX=len(GXUser)
+    XZUser=User.objects.filter(province="西藏"or"西藏自治区")
+    XZ=len(XZUser)
+    BJUser=User.objects.filter(province="北京"or"北京市")
+    BJ=len(BJUser)
+    SHUser=User.objects.filter(province="上海"or"上海市")
+    SH=len(SHUser)
+    TJUser=User.objects.filter(province="天津"or"天津市")
+    TJ=len(TJUser)
+    CQUser=User.objects.filter(province="重庆"or"重庆市")
+    CQ=len(CQUser)
+    list1=[LN,HLJ,JL,JS,SD,AH,HB,HN,HUB,HUN,JX,SX,SHX,SC,QH,HAIN,GD,GZ,ZJ,FJ,TW,GS,YN,NMG,NX,XJ,XZ,GX,BJ,TJ,SH,CQ]
+    list1.sort()
+    list1.reverse()
+    dict1={'LN':LN,'HLJ':HLJ,'JL':JL,'JS':JS,'SD':SD,'AH':AH,'HB':HB,'HN':HN,'HUB':HUB,'HUN':HUN,'JX':JX,'SX':SX,'SHX':SHX,'SC':SC,'QH':QH,'HAIN':HAIN,'GD':GD,'GZ':GZ,'ZJ':ZJ,'FJ':FJ,'TW':TW,'GS':GS,'YN':YN,'NMG':NMG,'NX':NX,'XJ':XJ,'XZ':XZ,'GX':GX,'BJ':BJ,'TJ':TJ,'SH':SH,'CQ':CQ}
+    a = sorted(dict1.items(),key=lambda item:item[1],reverse = True)
+    b = []
+    c = []
+    e = {}
+    def fun1(list):
+        for items in list:
+            for each in items:
+                if type(each) is int:
+                    pass
+                else:
+                    c.append(each)
+    fun1(a)
+    for i in range(len(c)):
+        if len(b) < 5 :
+            b.append(250 - i*40)
+        if len(b) > 4 and len(b) < 11:
+            b.append(70)
+        if len(b) > 10 and len(b)<13:
+            b.append(40)
+        if len(b) > 12:
+            b.append(0)
+
+    dict1 = dict(zip(c,b))
+    response_data = {'LN':dict1['LN'],'HLJ':dict1['HLJ'],'JL':dict1['JL'],'JS':dict1['JS'],'SD':dict1['SD'],'AH':dict1['AH'],'HB':dict1['HB'],'HN':dict1['HN'],'HUB':dict1['HUB'],'HUN':dict1['HUN'],'JX':dict1['JX'],'SX':dict1['SX'],'SHX':dict1['SHX'],'SC':dict1['SC'],'QH':dict1['QH'],'HAIN':dict1['HAIN'],'GD':dict1['GD'],'GZ':dict1['GZ'],'ZJ':dict1['ZJ'],'FJ':dict1['FJ'],'TW':dict1['TW'],'GS':dict1['GS'],'YN':dict1['YN'],'NMG':dict1['NMG'],'NX':dict1['NX'],'XJ':dict1['XJ'],'XZ':dict1['XZ'],'GX':dict1['GX'],'BJ':dict1['BJ'],'TJ':dict1['TJ'],'SH':dict1['SH'],'CQ':dict1['CQ']}
+    return HttpResponse(json.dumps(response_data), content_type="application/json")  
+
+def mapexam1(request):
+    LNUser=User.objects.filter(province="辽宁"or"辽宁省")
+    LN=len(LNUser)
+    HLJUser=User.objects.filter(province="黑龙江"or"黑龙江省")
+    HLJ=len(HLJUser)
+    JLUser=User.objects.filter(province="吉林"or"吉林省")
+    JL=len(JLUser)
+    JSUser=User.objects.filter(province="江苏"or"江苏省")
+    JS=len(JSUser)
+    SDUser=User.objects.filter(province="山东"or"山东省")
+    SD=len(SDUser)
+    AHUser=User.objects.filter(province="安徽"or"安徽省")
+    AH=len(AHUser)
+    HBUser=User.objects.filter(province="河北"or"河北省")
+    HB=len(HBUser)
+    HNUser=User.objects.filter(province="河南"or"河南省")
+    HN=len(HNUser)
+    HUBUser=User.objects.filter(province="湖北"or"湖北省")
+    HUB=len(HUBUser)
+    HUNUser=User.objects.filter(province="湖南"or"湖南省")
+    HUN=len(HUNUser)
+    JXUser=User.objects.filter(province="江西"or"江西省")
+    JX=len(JXUser)
+    SXUser=User.objects.filter(province="陕西"or"陕西省")
+    SX=len(SXUser)
+    SHXUser=User.objects.filter(province="山西"or"山西省")
+    SHX=len(SHXUser)
+    SCUser=User.objects.filter(province="四川"or"四川省")
+    SC=len(SCUser)
+    QHUser=User.objects.filter(province="青海"or"青海省")
+    QH=len(QHUser)
+    HAINUser=User.objects.filter(province="海南"or"海南省")
+    HAIN=len(HAINUser)
+    GDUser=User.objects.filter(province="广东"or"广东省")
+    GD=len(GDUser)
+    GZUser=User.objects.filter(province="贵州"or"贵州省")
+    GZ=len(GZUser)
+    ZJUser=User.objects.filter(province="浙江"or"浙江省")
+    ZJ=len(ZJUser)
+    FJUser=User.objects.filter(province="福建"or"福建省")
+    FJ=len(FJUser)
+    TWUser=User.objects.filter(province="台湾"or"台湾省")
+    TW=len(TWUser)
+    GSUser=User.objects.filter(province="甘肃"or"甘肃省")
+    GS=len(GSUser)
+    YNUser=User.objects.filter(province="云南"or"云南省")
+    YN=len(YNUser)
+    NMGUser=User.objects.filter(province="内蒙"or"内蒙古"or"内蒙古自治区")
+    NMG=len(NMGUser)
+    NXUser=User.objects.filter(province="宁夏"or"宁夏回族自治区")
+    NX=len(NXUser)
+    XJUser=User.objects.filter(province="新疆"or"新疆维吾尔族自治区")
+    XJ=len(XJUser)
+    GXUser=User.objects.filter(province="广西"or"广西壮族自治区")
+    GX=len(GXUser)
+    XZUser=User.objects.filter(province="西藏"or"西藏自治区")
+    XZ=len(XZUser)
+    BJUser=User.objects.filter(province="北京"or"北京市")
+    BJ=len(BJUser)
+    SHUser=User.objects.filter(province="上海"or"上海市")
+    SH=len(SHUser)
+    TJUser=User.objects.filter(province="天津"or"天津市")
+    TJ=len(TJUser)
+    CQUser=User.objects.filter(province="重庆"or"重庆市")
+    CQ=len(CQUser)
+    list1=[LN,HLJ,JL,JS,SD,AH,HB,HN,HUB,HUN,JX,SX,SHX,SC,QH,HAIN,GD,GZ,ZJ,FJ,TW,GS,YN,NMG,NX,XJ,XZ,GX,BJ,TJ,SH,CQ]
+    list1.sort()
+    list1.reverse()
+    dict1={'LN':LN,'HLJ':HLJ,'JL':JL,'JS':JS,'SD':SD,'AH':AH,'HB':HB,'HN':HN,'HUB':HUB,'HUN':HUN,'JX':JX,'SX':SX,'SHX':SHX,'SC':SC,'QH':QH,'HAIN':HAIN,'GD':GD,'GZ':GZ,'ZJ':ZJ,'FJ':FJ,'TW':TW,'GS':GS,'YN':YN,'NMG':NMG,'NX':NX,'XJ':XJ,'XZ':XZ,'GX':GX,'BJ':BJ,'TJ':TJ,'SH':SH,'CQ':CQ}
+    a = sorted(dict1.items(),key=lambda item:item[1],reverse = True)
+    b = []
+    c = []
+    e = {}
+    def fun1(list):
+        for items in list:
+            for each in items:
+                if type(each) is int:
+                    pass
+                else:
+                    c.append(each)
+    fun1(a)
+    for i in range(len(c)):
+        if len(b) < 5 :
+            b.append(130 - i*15)
+        if len(b) > 4 and len(b) < 11:
+            b.append(70)
+        if len(b) > 10 and len(b)<13:
+            b.append(40)
+        if len(b) > 12:
+            b.append(0)
+
+    dict1 = dict(zip(c,b))
+    response_data = {'LN':dict1['LN'],'HLJ':dict1['HLJ'],'JL':dict1['JL'],'JS':dict1['JS'],'SD':dict1['SD'],'AH':dict1['AH'],'HB':dict1['HB'],'HN':dict1['HN'],'HUB':dict1['HUB'],'HUN':dict1['HUN'],'JX':dict1['JX'],'SX':dict1['SX'],'SHX':dict1['SHX'],'SC':dict1['SC'],'QH':dict1['QH'],'HAIN':dict1['HAIN'],'GD':dict1['GD'],'GZ':dict1['GZ'],'ZJ':dict1['ZJ'],'FJ':dict1['FJ'],'TW':dict1['TW'],'GS':dict1['GS'],'YN':dict1['YN'],'NMG':dict1['NMG'],'NX':dict1['NX'],'XJ':dict1['XJ'],'XZ':dict1['XZ'],'GX':dict1['GX'],'BJ':dict1['BJ'],'TJ':dict1['TJ'],'SH':dict1['SH'],'CQ':dict1['CQ']}
+    return HttpResponse(json.dumps(response_data), content_type="application/json")  
+
+def pie(request):
+    all=User.objects.all()
+    list1=[]
+    for i in all:
+        list1.append(i.office)
+    dict1={}
+    for item in list1:
+        dict1[item] = dict1.get(item, 0) + 1
+    dict1['胸外科']=dict1['胸外科']+dict1['心胸外科']+dict1['胸心外科']+dict1['胸外']+dict1['胸科']+dict1['胸腔外科']+dict1['胸外二科']+dict1['雄心外科二病区']
+    dict1.pop('心胸外科')
+    dict1.pop('胸心外科')
+    dict1.pop('胸外')
+    dict1.pop('胸科')
+    dict1.pop('胸腔外科')
+    dict1.pop('胸外二科')
+    dict1.pop('雄心外科二病区')
+    dict1.pop('')
+    a = sorted(dict1.items(),key=lambda item:item[1],reverse = True)
+    b = []
+    c = []
+    e = {}
+    def fun1(list):
+        for items in list:
+            for each in items:
+                if type(each) is int:
+                    b.append(each)
+                else:
+                    c.append(each)
+    fun1(a)
+    dict_top6_name={}
+    dict_top6_vue={}
+    dict_top6_name['name1']=c[0]
+    dict_top6_name['name2']=c[1]
+    dict_top6_name['name3']=c[2]
+    dict_top6_name['name4']=c[3]
+    dict_top6_name['name5']=c[4]
+    dict_top6_name['name6']=c[5]
+    dict_top6_vue['vue1']=b[0]
+    dict_top6_vue['vue2']=b[1]
+    dict_top6_vue['vue3']=b[2]
+    dict_top6_vue['vue4']=b[3]
+    dict_top6_vue['vue5']=b[4]
+    dict_top6_vue['vue6']=b[5]
+
+    name_vue=dict(dict_top6_name, **dict_top6_vue)
+    return HttpResponse(json.dumps(name_vue), content_type="application/json")
+
+
+def pie2(request):
+    all=User.objects.all()
+    list2=[]
+    for i in all:
+        list2.append(i.post)
+    dict2={}
+    for item in list2:
+        dict2[item] = dict2.get(item, 0) + 1
+    dict2.pop('')
+    dict2.pop('无')
+    dict2['主任']=dict2['主任']+dict2['科主任']
+    dict2.pop('科主任')
+    a = sorted(dict2.items(),key=lambda item:item[1],reverse = True)
+    b = []
+    c = []
+    e = {}
+    def fun1(list):
+        for items in list:
+            for each in items:
+                if type(each) is int:
+                    b.append(each)
+                else:
+                    c.append(each)
+    fun1(a)
+    dict_top6_name={}
+    dict_top6_vue={}
+    dict_top6_name['name1']=c[0]
+    dict_top6_name['name2']=c[1]
+    dict_top6_name['name3']=c[2]
+    dict_top6_name['name4']=c[3]
+    dict_top6_name['name5']=c[4]
+    dict_top6_name['name6']=c[5]
+    dict_top6_vue['vue1']=b[0]
+    dict_top6_vue['vue2']=b[1]
+    dict_top6_vue['vue3']=b[2]
+    dict_top6_vue['vue4']=b[3]
+    dict_top6_vue['vue5']=b[4]
+    dict_top6_vue['vue6']=b[5]
+
+    name_vue=dict(dict_top6_name, **dict_top6_vue)
+    return HttpResponse(json.dumps(name_vue), content_type="application/json")
+
+def pie3(request):
+    all=User.objects.all()
+    list3=[]
+    for i in all:
+        list3.append(i.professional)
+    dict3={}
+    for item in list3:
+        dict3[item] = dict3.get(item, 0) + 1
+    dict3.pop('')
+    a = sorted(dict3.items(),key=lambda item:item[1],reverse = True)
+    b = []
+    c = []
+    e = {}
+    def fun1(list):
+        for items in list:
+            for each in items:
+                if type(each) is int:
+                    b.append(each)
+                else:
+                    c.append(each)
+    fun1(a)
+    dict_top6_name={}
+    dict_top6_vue={}
+    dict_top6_name['name1']=c[0]
+    dict_top6_name['name2']=c[1]
+    dict_top6_name['name3']=c[2]
+    dict_top6_name['name4']=c[3]
+    dict_top6_name['name5']=c[4]
+    dict_top6_name['name6']=c[5]
+    dict_top6_vue['vue1']=b[0]
+    dict_top6_vue['vue2']=b[1]
+    dict_top6_vue['vue3']=b[2]
+    dict_top6_vue['vue4']=b[3]
+    dict_top6_vue['vue5']=b[4]
+    dict_top6_vue['vue6']=b[5]
+    name_vue=dict(dict_top6_name, **dict_top6_vue)
+    return HttpResponse(json.dumps(name_vue), content_type="application/json")
+

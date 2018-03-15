@@ -79,19 +79,19 @@
                                 </tr>
                                
                             </table>
-                            <table width="100%" border="1" cellspacing="1" cellpadding="4" bgcolor="#cccccc" class="tabtop13" align="center">
+                             <table width="100%" border="1" cellspacing="1" cellpadding="4" bgcolor="#cccccc" align="center" id="table-7">
                                 <tr>
-                                    <td width="25%" class="btbg font-center titfont">申请日期</td>
-                                    <td width="25%" class="btbg font-center titfont">SN号</td>
-                                    <td width="25%" class="btbg font-center titfont">激活码</td>
-                                    <td width="25%" class="btbg font-center titfont">审核状态</td>
+                                    <th width="25%" class="font-center">申请日期</th>
+                                    <th width="25%" class="font-center">SN号</th>
+                                    <th width="25%" class="font-center">激活码</th>
+                                    <th width="25%" class="font-center">审核状态</th>
                                 </tr>
                                 {% for history in personal_historys %}
                                 <tr>
                                     <td width="25%" class="font-center">{{history.apply_time}}</td>
                                     <td width="25%" class="font-center">{{history.SNnum}}</td>
                                     <td width="25%" class="font-center">
-                                            <a style="color:#255E95;TEXT-DECORATION: underline;" href="../static/activation/history_id_{{history.id}}/1.txt" download="1.txt">点击下载</a>
+                                            <a style="color:#255E95;TEXT-DECORATION: underline;" href="../static/activation/history_id_{{history.id}}/MICkey.dat" download="1.txt">点击下载</a>
                                             </td>
                                     <td width="25%" class="font-center">{{history.examine}}</td>
                                 </tr>

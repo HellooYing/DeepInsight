@@ -1,0 +1,298 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+        <meta charset="utf-8">
+        <title>DeepInsight-管理员中心</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+    
+        
+        <script>
+        if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+            location.href ="/statistics1"
+        }
+       
+        </script>
+    <!-- Bootstrap styles -->
+    <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}">
+
+    <!-- Font-Awesome -->
+    <link rel="stylesheet" href="{% static "css/font-awesome/css/font-awesome.min.css" %}">
+
+	<link rel="stylesheet" type="text/css" href="{% static "css/htmleaf-demo.css" %}">
+    <!-- Google Webfonts -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600|PT+Serif:400,400italic' rel='stylesheet' type='text/css'>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="{% static "css/style3.css" %}" id="theme-styles">
+    <style>
+    #china-map {width:600px; height: 400px;margin-left:-50px;}
+    #pie1{width:500px;height:400px;}
+    #pie2{width:500px;height:400px;}
+    #pie3{width:500px;height:400px;}
+    .hide{width:0;height:0;}
+ a { color:#333; text-decoration:none; }
+a:hover { text-decoration:underline; }
+ul, li { list-style:none; }
+fieldset, img { border:none; }
+#hotnews { width:260px; margin:1px; margin-left:0px; margin-right:auto;font-size:12px;}
+#hotnews_caption { width:260px; overflow:hidden;margin-left:-50px; border-bottom:1px solid #FAFAFA; }
+#hotnews_caption ul { float:right; }
+#hotnews_caption ul li { float:left; border-left:1px solid #FFF; width:85px; line-height:25px; text-align:center; cursor:pointer;font-size:12px; }
+#hotnews_caption .normal { background:#E4E4E4; }
+#hotnews_caption .current{ background:#C2130E; color:#FFF; }
+#hotnews_content {}
+#hotnews_content .normal { display:none; }
+#hotnews_content .current { display:block; }
+#hotnews_content ul { padding:8px 0 0 5px; }
+#hotnews_content ul li a { font-size:12px;letter-spacing:1pt;line-height:14pt;}  
+    </style><style type="text/css">
+		.demo{
+			height: 400px;
+			background: #fff;
+			padding: 2em 0;
+		}
+		a:hover,a:focus{
+		    outline: none;
+		    text-decoration: none;
+		}
+		.tab{ text-align: center; }
+		.tab .nav-tabs{
+		    display: inline-block;
+		    position: relative;
+		    border-bottom: none;
+		}
+		.tab .nav-tabs li{
+		    margin: 0;
+		}
+		.tab .nav-tabs li a{
+		    display: block;
+		    padding: 80px 20px 10px;
+		    background: #fff;
+		    font-size: 17px;
+		    font-weight: 700;
+		    color: #999;
+		    text-transform: uppercase;
+		    text-align: center;
+		    border-radius: 0;
+		    border: none;
+		    border-bottom: 2px solid #fff;
+		    margin-right: 0;
+		    overflow: hidden;
+		    z-index: 1;
+		    position: relative;
+		    transition: all 0.3s ease 0s;
+		}
+		.tab .nav-tabs li a span{
+		    display: block;
+		    width: 50px;
+		    height: 50px;
+		    line-height: 50px;
+		    background: #f2f2f2;
+		    margin: auto;
+		    font-size: 22px;
+		    color: #999;
+		    border-radius: 5px;
+		    position: absolute;
+		    top: 10px;
+		    left: 0;
+		    right: 0;
+		    transform: rotate(45deg);
+		}
+		.tab .nav-tabs li.active a span{
+		    background: #29335c;
+		    color: #fff;
+		}
+		.tab .nav-tabs li a span i{
+		    transform: rotate(-45deg);
+		}
+		.tab .nav-tabs li.active a,
+		.tab .nav-tabs li a:hover{
+		    color: #999;
+		    border: none;
+		    border-bottom: 2px solid #fff;
+		}
+		.tab .nav-tabs li.active a{
+		    border-bottom: 2px solid #29335c;
+		}
+		.tab .tab-content{
+		    padding: 20px;
+		    margin-top: -5px;
+		    font-size: 15px;
+		    color: #757575;
+		    line-height: 26px;
+		    text-align: left;
+		    border-top: 1px solid #e5e5e5;
+		}
+		.tab .tab-content h3{
+		    font-size: 24px;
+		    margin-top: 0;
+		}
+		
+		@media only screen and (max-width: 479px){
+		    .tab .nav-tabs li{
+		        width: 100%;
+		        text-align: center;
+		        margin-bottom: 5px;
+		    }
+		    .tab .nav-tabs li:last-child{
+		        margin-bottom: 0;
+		    }
+		}
+	</style>
+
+   
+        <script src="../static/js/jquery-1.11.0.min.js"></script>
+        <script src="../static/js/echarts.js"></script>
+        <script src="../static/js/china.js"></script>
+</head>
+
+<body>
+    <header>
+        <div class="widewrapper masthead">
+            <div class="container">
+                <a href="/" id="logo">
+                    <img src="{% static "images/logo2.png" %}" alt="clean Blog">
+                </a>
+            </div>
+           
+        </div>
+
+        <div class="widewrapper subheader">
+            <div class="container">
+                <div class="clean-breadcrumb">
+                    <a href="/">首页</a>
+                    <span class="separator">&#x2F;</span>
+                    <a href="#">统计分析</a>
+
+                </div>
+                <div class="clean-breadcrumb2"><a href="/personal">欢迎您！  {{user.name}}</a>
+                    <span class="separator">&#x2F;</span>
+                     <a href="/logout">注销</a></div>
+
+                <div class="clean-searchbox">
+                    <form action="#" method="get" accept-charset="utf-8">
+
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="widewrapper main">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 blog-main">
+                    <article class="blog-post">
+
+
+
+
+                        <div class="body">
+                            <h2>
+                                统计分析
+                            </h2>
+                            <br>
+                               
+                              
+                        
+                                    <!-- <div id="hotnews">
+                                            <div id="hotnews_caption">
+                                            <ul>
+                                             <li class="current" onmouseover="secBoard('hotnews_caption','list',1);">用户分布</li>
+                                             <li class="normal" onmouseover="secBoard('hotnews_caption','list',2);">科室</li>
+                                             <li class="normal" onmouseover="secBoard('hotnews_caption','list',3);">职务</li>
+                                             <li class="normal" onmouseover="secBoard('hotnews_caption','list',4);">职称</li>
+                                             
+                                            </ul>
+                                            </div>
+                               
+                                <div id="hotnews_content">
+                            <div class="current" id="list_1"><ul><div id="china-map" class=""></div></ul></div>
+                            <div class="normal" id="list_2"><ul><div id="pie1" class=""></div></ul></div>
+                            <div class="normal" id="list_3"><ul><div id="pie2" class=""></div></ul></div>
+                            <div class="normal" id="list_4"><ul><div id="pie3" class=""></div></ul></div>
+                                    </div></div>
+                             -->
+ <div class="demo">
+    <div class="container" style="margin-left:-25%;">
+        <div class="row">
+            <div class="col-md-offset-3 col-md-6">
+                <div class="tab" role="tabpanel">
+                                                                <!-- Nav tabs -->
+                    <ul style="width:100%;" class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active"><a href="#Section1" aria-controls="home" role="tab" data-toggle="tab"><span><i class="fa fa-globe"></i></span> 省份</a></li>
+                        <li role="presentation"><a href="#Section2" aria-controls="profile" role="tab" data-toggle="tab"><span><i class="fa fa-user"></i></span> 科室</a></li>
+                        <li role="presentation"><a href="#Section3" aria-controls="messages" role="tab" data-toggle="tab"><span><i class="fa fa-user"></i></span> 职务</a></li>
+                        <li role="presentation"><a href="#Section4" aria-controls="home" role="tab" data-toggle="tab"><span><i class="fa fa-user"></i></span> 职称</a></li>
+                    </ul>
+                                                                <!-- Tab panes -->
+                <div class="tab-content tabs">
+                    <div role="tabpanel" class="tab-pane fade in active" id="Section1">
+                        <h3>省份</h3>
+                        <div class="current" id="list_1"><ul><div id="china-map" class=""></div></ul></div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="Section2">
+                        <h3>科室</h3>
+                        <div class="normal" id="list_2"><ul><div id="pie1" class=""></div></ul></div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="Section3">
+                        <h3>职务</h3>
+                    <div class="normal" id="list_3"><ul><div id="pie2" class=""></div></ul></div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="Section4">
+                    <h3>职称</h3>
+                    <div class="normal" id="list_4"><ul><div id="pie3" class=""></div></ul></div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+                                  
+                             
+                            <script src="../static/js/pie1.js"></script>
+                            <script src="../static/js/pie2.js"></script>
+                            <script src="../static/js/pie3.js"></script>
+                            <script src="../static/js/mapexam.js"></script>
+                     
+                        </div>
+                    </article>
+
+                </div>
+                <aside class="col-md-2 blog-aside">
+                    
+                                    <div class="aside-widget">
+                                        <header>
+                                            <h3>功能区</h3>
+                                        </header>
+                                        <div class="body">
+                                            <ul class="clean-list">
+                                                <li><a href="/statistics">统计分析</a></li>
+                                                <li><a href="/administrator">申请审核</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div class="widewrapper copyright">
+            DeepInsight
+        </div>
+    </footer>
+    <script src="{% static "js/bootstrap.min.js" %}"></script>
+    <script src="{% static "js/modernizr.js" %}"></script>
+    <script src="../static/js/jquery-1.11.1.min.js"></script>
+    <script>  window.onresize = function () {if(document.body.clientWidth<1000){
+        location.href ="/statistics1"
+        }}
+    </script>
+
+</body>
+
+</html>

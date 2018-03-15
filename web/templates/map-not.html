@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ECharts</title>
+    <!-- 引入 echarts.js -->
+    <script src="../static/js/echarts.js"></script>
+    <script src="../static/js/jquery-1.11.0.min.js"></script>
+    <script src="../static/js/bmap.js"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=DD279b2a90afdf0ae7a3796787a0742e"></script>
+</head>
+<body >
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="width: 60%;height:500px;margin:auto;"></div>
+</body>
+</html>
+<script>
+ 
+ var myChart = echarts.init(document.getElementById('main'));
+
+ $.ajax({
+    async: false,
+    url:"/mapexam",
+    success:function(result){
+    Window.XiZang=result.XiZang;
+    Window.LiaoNing=result.LiaoNing;
+    console.log(Window.LiaoNing)
+    }});
+
+
+var data = [
+    {name: '西藏', value: Window.XiZang},
+    {name: '上海', value: 100}, 
+    {name: '福建', value: 150},
+    {name: '广东', value: 30},
+    {name: '山西', value: 20},
+    {name: '云南', value: 50},
+    {name: '海南', value: 70},
+    {name: '辽宁', value: Window.LiaoNing},
+    {name: '吉林', value: 50},
+    {name: '江西', value: 30},
+    {name: '青海', value: 90},
+    {name: '内蒙古', value: 90},
+    {name: '陕西', value: 90},
+    {name: '重庆', value: 90},
+    {name: '江苏', value: 300},
+    {name: '北京', value: 120},
+    {name: '新疆', value: 90},
+    {name: '浙江', value: 200},
+    {name: '山东', value: 90},
+    {name: '甘肃', value: 90},
+    {name: '天津', value: 90},
+    {name: '河南', value: 90},
+    {name: '黑龙江', value: 90},
+    {name: '河北', value: 90},
+    {name: '湖南', value: 90},
+    {name: '安徽', value: 90},
+    {name: '湖北', value: 90},
+    {name: '四川', value: 90},
+    {name: '贵州', value: 90},
+    {name: '广西', value: 90},
+    {name: '宁夏 ', value: 90}
+   ];
+var geoCoordMap = {
+'西藏':[91.11,29.97], 
+'上海':[121.48,31.22], 
+'福建':[119.3,26.08], 
+'广东':[113.23,23.16],
+'山西':[112.53,37.87], 
+'云南':[102.73,25.04],
+'海南':[110.35,20.02],
+'辽宁':[123.38,41.8], 
+'吉林':[125.35,43.88],
+'江西':[115.89,28.68], 
+'青海':[101.74,36.56],
+'内蒙古':[111.65,40.82],
+'陕西':[108.95,34.27],
+'重庆':[106.54,29.59],
+'江苏':[118.78,32.04],
+'北京':[116.46,39.92],
+'新疆':[87.68,43.77],
+'浙江':[120.19,30.26],
+'山东':[117,36.65],
+'甘肃':[103.73,36.03],
+'天津':[117.2,39.13],
+'河南':[113.65,34.76],
+'黑龙江':[126.63,45.75],
+'河北':[114.48,38.03],
+'湖南':[113,28.21],
+'安徽':[117.27,31.86],
+'湖北':[114.31,30.52],
+'四川':[104.06,30.67],
+'贵州':[106.71,26.57],
+'广西':[108.33,22.84],
+'宁夏 ':[106.27,38.47]
+};
+
+var convertData = function (data) {
+var res = [];
+for (var i = 0; i < data.length; i++) {
+    var geoCoord = geoCoordMap[data[i].name];
+    if (geoCoord) {
+        res.push({
+            name: data[i].name,
+            value: geoCoord.concat(data[i].value)
+        });
+    }
+}
+return res;
+};
+
+option = {
+title: {
+    text: 'DeepInsight用户分布省份',
+    subtext: '',
+    sublink: '',
+    left: 'center'
+},
+tooltip : {
+    trigger: 'item'
+},
+bmap: {
+    center: [104.114129, 37.550339],
+    zoom: 5,
+    roam: true,
+    mapStyle: {
+        styleJson: [{
+            'featureType': 'water',
+            'elementType': 'all',
+            'stylers': {
+                'color': '#d1d1d1'
+            }
+        }, {
+            'featureType': 'land',
+            'elementType': 'all',
+            'stylers': {
+                'color': '#f3f3f3'
+            }
+        }, {
+            'featureType': 'railway',
+            'elementType': 'all',
+            'stylers': {
+                'visibility': 'off'
+            }
+        }, {
+            'featureType': 'highway',
+            'elementType': 'all',
+            'stylers': {
+                'color': '#fdfdfd'
+            }
+        }, {
+            'featureType': 'highway',
+            'elementType': 'labels',
+            'stylers': {
+                'visibility': 'off'
+            }
+        }, {
+            'featureType': 'arterial',
+            'elementType': 'geometry',
+            'stylers': {
+                'color': '#fefefe'
+            }
+        }, {
+            'featureType': 'arterial',
+            'elementType': 'geometry.fill',
+            'stylers': {
+                'color': '#fefefe'
+            }
+        }, {
+            'featureType': 'poi',
+            'elementType': 'all',
+            'stylers': {
+                'visibility': 'off'
+            }
+        }, {
+            'featureType': 'green',
+            'elementType': 'all',
+            'stylers': {
+                'visibility': 'off'
+            }
+        }, {
+            'featureType': 'subway',
+            'elementType': 'all',
+            'stylers': {
+                'visibility': 'off'
+            }
+        }, {
+            'featureType': 'manmade',
+            'elementType': 'all',
+            'stylers': {
+                'color': '#d1d1d1'
+            }
+        }, {
+            'featureType': 'local',
+            'elementType': 'all',
+            'stylers': {
+                'color': '#d1d1d1'
+            }
+        }, {
+            'featureType': 'arterial',
+            'elementType': 'labels',
+            'stylers': {
+                'visibility': 'off'
+            }
+        }, {
+            'featureType': 'boundary',
+            'elementType': 'all',
+            'stylers': {
+                'color': '#fefefe'
+            }
+        }, {
+            'featureType': 'building',
+            'elementType': 'all',
+            'stylers': {
+                'color': '#d1d1d1'
+            }
+        }, {
+            'featureType': 'label',
+            'elementType': 'labels.text.fill',
+            'stylers': {
+                'color': '#999999'
+            }
+        }]
+    }
+},
+series : [
+    {
+        name: 'pm2.5',
+        type: 'scatter',
+        coordinateSystem: 'bmap',
+        data: convertData(data),
+        symbolSize: function (val) {
+            return val[2] / 10;
+        },
+        label: {
+            normal: {
+                formatter: '{b}',
+                position: 'right',
+                show: false
+            },
+            emphasis: {
+                show: true
+            }
+        },
+        itemStyle: {
+            normal: {
+                color: 'purple'
+            }
+        }
+    },
+    {
+        name: 'Top 5',
+        type: 'effectScatter',
+        coordinateSystem: 'bmap',
+        data: convertData(data.sort(function (a, b) {
+            return b.value - a.value;
+        }).slice(0, 6)),
+        symbolSize: function (val) {
+            return val[2] / 10;
+        },
+        showEffectOn: 'render',
+        rippleEffect: {
+            brushType: 'stroke'
+        },
+        hoverAnimation: true,
+        label: {
+            normal: {
+                formatter: '{b}',
+                position: 'right',
+                show: true
+            }
+        },
+        itemStyle: {
+            normal: {
+                color: 'purple',
+                shadowBlur: 10,
+                shadowColor: '#333'
+            }
+        },
+        zlevel: 1
+    }
+]
+};
+
+
+// option = {
+//     backgroundColor: '#404a59',
+//     title: {
+//         text: '',
+//         left: 'center',
+//         textStyle: {
+//             color: '#fff'
+//         }
+//     },
+//     tooltip : {
+//         trigger: 'item'
+//     },
+//     bmap: {
+//         center: [104.114129, 37.550339],
+//         zoom: 5,
+//         roam: true
+//     },
+    
+//     series : [
+//         {
+//             name: 'Top 5',
+//             type: 'effectScatter',
+//             coordinateSystem: 'bmap',
+//             data: convertData(data.sort(function (a, b) {
+//                 return b.value - a.value;
+//             }).slice(0, 6)),
+//             symbolSize: function (val) {
+//                 return val[2] / 2;
+//             },
+//             rippleEffect: {
+//                 brushType: 'stroke'
+//             },
+//             hoverAnimation: true,
+//             label: {
+//                 normal: {
+//                     formatter: '{b}',
+//                     position: 'right',
+//                     show: true
+//                 }
+//             },
+//             itemStyle: {
+//                 normal: {
+//                     color: '#ff0000',
+//                     shadowBlur: 10,
+//                     shadowColor: '#333'
+//                 }
+//             },
+//             zlevel: 1
+            
+//         }
+//     ]
+// };
+
+myChart.setOption(option);
+// 获取百度地图实例，使用百度地图自带的控件
+var bmap = myChart.getModel().getComponent('bmap').getBMap();
+bmap.addControl(new BMap.MapTypeControl());
+//调用百度的方法，使用bmap对象
+	 var point = new BMap.Point(104,37.5);
+	 bmap.centerAndZoom(point,5);
+	//bmap.centerAndZoom(new BMap.Point(108.95,34.27),5); 
+	// //创建小狐狸
+	// var pt = new BMap.Point(116.417, 39.909);
+	// var myIcon = new BMap.Icon("http://lbsyun.baidu.com/jsdemo/img/fox.gif", new BMap.Size(300,157));
+	// var marker2 = new BMap.Marker(pt,{icon:myIcon});  // 创建标注
+	// bmap.addOverlay(marker2);              // 将标注添加到地图中
+</script>

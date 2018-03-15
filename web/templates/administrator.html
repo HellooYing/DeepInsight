@@ -79,59 +79,63 @@
                                     <td align="center" class="biaoti" height="60">待审核申请</td>
                                 </tr>
                             </table>
-                        </br>             
+                        </br> 
+                        <table width="100%" id="table-7" Name="table-7"  class="">         
+                        <tr>
+                            <th width="11%" class="font-center">历史详情</th>
+                            <th width="18%" class="font-center">申请日期</th>
+                            <th width="12%" class="font-center">单位</th>
+                            <th width="11%" class="font-center">真实姓名</th>
+                            <th width="12%" class="font-center">科室</th>
+                            <th width="10%" class="font-center">审核状态</th>
+                            <th width="10%" class="font-center">是否批准</th>
+                        </tr></table>
                             {% for history in admin_historys %}
-                            <table width="100%" id="table-7" Name="table-7"  class="">
-                                <tr>
-                                    <th width="11%">详情</th>
-                                    <th width="18%">申请日期</th>
-                                    <th width="12%">真实姓名</th>
-                                    <th width="11%">单位</th>
-                                    <th width="12%">科室</th>
-                                    <th width="10%">审核状态</th>
-                                    <th width="10%">是否批准</th>
-                                </tr>
+                            <table width="100%" id="table-7" Name="table-7"  class="" border="1" cellspacing="1" cellpadding="4" bgcolor="#cccccc" align="center">
+                                
                                 <tr>
                                     
-                                    <td width="11%"><button onclick="changecss({{history.id}})">详情</button></td>
-                                    <td width="18%">{{history.apply_time}}</td>
-                                    <td width="12%">{{history.user.name}}</td>
-                                    <td width="11%">{{history.user.unit}}</td>
-                                    <td width="12%">{{history.user.office}}</td>
-                                    <td width="10%" id='{{history.id}}'>{{history.examine}}</td>
-                                    <td width="10%">
-                                            <button type="button" onclick="allow({{history.id}})" id="allow">批准</button>
-                                            </br>
-                                            <button type="button" onclick="cancel({{history.id}})" id="cancel">取消</button></td>
+                                    <td width="11%" class="font-center"><a onclick="changecss({{history.id}})">历史详情</a></td>
+                                    <td width="18%" class="font-center">{{history.apply_time}}</td>
+                                    <td width="12%" class="font-center">{{history.user.unit}}</td>
+                                    <td width="11%" class="font-center">{{history.user.name}}</td>
+                                    <td width="12%" class="font-center">{{history.user.office}}</td>
+                                    <td width="10%" class="font-center" id='{{history.id}}'>{{history.examine}}</td>
+                                    <td width="10%" class="font-center">
+                                            <a onclick="allow({{history.id}})" id="allow">批准</a>
+                                        
+                                            <a onclick="cancel({{history.id}})" id="cancel">取消</a></td>
                                 </tr>
                             </table>
 
-                            <div class="sr-only" id="hidden_css_{{history.id}}">
+                            <div style="margin:0;padding:0;" class="sr-only" id="hidden_css_{{history.id}}">
                                    
                                     
-                            <div class="col-md-11">
-                                    <table width="100%" id="table-7">
+                            
+                                    <table width="100%" id="table-7" border="1" cellspacing="1" cellpadding="4" bgcolor="#cccccc" align="center">
                                     <tr>
-                                        <th width="15%">申请日期</th>
-                                        <th width="15%">激活码</th>
-                                        <th width="15%">SN号</th>
-                                        <th width="15%">审核状态</th>
-                                        <th width="15%">工作证</th>
-                                        <th width="15%">协议扫描件</th>
+                                        <td width="11%" class="font-center">激活码</td>
+                                        <td width="18%" class="font-center">\</td>
+                                        <td width="12%" class="font-center">\</td>
+                                        <td width="11%" class="font-center">协议扫描件</td>
+                                        <td width="12%" class="font-center">工作证</td>
+                                        <td width="10%" class="font-center">\</td>
+                                        <td width="10%" class="font-center">SN号</td>
                                     </tr>
                                     {% for h in history.personal_history %}
                                     <tr>
-                                        <td width="15%">{{h.apply_time}}</td>
-                                        <td width="15%">{{h.activation}}</td>
-                                        <td width="15%">{{h.SNnum}}</td>
-                                        <td width="15%">{{h.examine}}</td>
-                                        <td width="15%"><a href={% static history.user_image.user_image_path %}>工作证链接</a></td>
-                                        <td width="15%"><a href={% static history.user_image.user_scanning_copy_path %}>协议扫描件链接</a></td>
+                                        <td width="11%" class="font-center">{{h.activation}}</td>
+                                        <td width="18%" class="font-center">{{h.apply_time}}</td>
+                                        <td width="12%" class="font-center">{{history.user.unit}}</td>
+                                        <td width="11%" class="font-center"><a href={% static history.user_image.user_scanning_copy_path %}>协议扫描件链接</a></td>
+                                        <td width="12%" class="font-center"><a href={% static history.user_image.user_image_path %}>工作证链接</a></td>
+                                        <td width="10%" class="font-center">{{h.examine}}</td>
+                                        <td width="10%" class="font-center">{{h.SNnum}}</td>
                                     </tr>
                                     {% endfor %}
                                     </table>
                             </br>
-                            </div>
+                           
                             
                            
                                  
@@ -155,8 +159,8 @@
                                         </header>
                                         <div class="body">
                                             <ul class="clean-list">
-                                                <li><a href="/">统计分析</a></li>
-                                                <li><a href="/">申请审核</a></li>
+                                                <li><a href="/statistics">统计分析</a></li>
+                                                <li><a href="/administrator">申请审核</a></li>
                                             </ul>
                                         </div>
                                     </div>

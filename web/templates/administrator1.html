@@ -72,57 +72,83 @@
 
 
                         <div class="body">
+                            
                             <h2>
                                 管理员中心
                             </h2>
+                      
+
                             <table width="80%" border="0" cellspacing="0" cellpadding="0" align="center">
                                 <tr>
                                     <td align="center" class="biaoti" height="60">待审核申请</td>
                                 </tr>
                             </table>
-                            <hr style="color:#F1F1F1;height:40px;background-color:#F1F1F1;margin:-12px;" />  
-                      {% for history in admin_historys %}
-                        <table width="100%" id="table-8" Name="table-8" class="">
-                           
-                            <tr>
-                                <th style="color:#255E95;">真实姓名</th><td>{{history.user.name}}</td>
-                                <th>查看详情</th><td><button onclick="changecss({{history.id}})">详情</button></td>
-                                <th>申请日期</th><td>{{history.apply_time}}</td>
-                                <th>单位</th><td>{{history.user.unit}}</td>
-                                <th>科室</th><td>{{history.user.office}}</td>
-                                <th>是否批准</th>
-                                <td>
-                                        <button type="button" onclick="allow({{history.id}})" id="allow">批准</button>
-                                        <button type="button" onclick="cancel({{history.id}})" id="cancel">取消</button></td>
-                                <th>审核状态</th><td id='{{history.id}}'>{{history.examine}}</td>
-                                </br>
-                            </tr>
-                            
-                        </table>
-                        <hr style="color:#90C6F8;height:15px;background-color:#255E95;margin:-12px;" />
-                        <div class="sr-only" id="hidden_css_{{history.id}}">
-                               
-                                
-                        <div class="col-md-11">
-                                <table width="100%" id="table-8" class="">
-                                
-                                {% for h in history.personal_history %}
-                                </br>
+                        </br> 
+                       
+                        <table width="100%" id="table-7" Name="table-7"  class="">         
                                 <tr>
-                                        <th style="color:red;">申请日期</th> <td>{{h.apply_time}}</td>
-                                        <th>激活码</th>  <td>{{h.activation}}</td>
-                                        <th>SN号</th> <td>{{h.SNnum}}</td>
-                                        <th>审核状态</th>  <td>{{h.examine}}</td>
-                                        <th>工作证</th> <td><a href={% static history.user_image.user_image_path %}>工作证链接</a></td>
-                                        <th>协议扫描件</th><td><a href={% static history.user_image.user_scanning_copy_path %}>协议扫描件链接</a></td>
-                                     </tr>
-                                {% endfor %}
+                                    <th width="25%" class="font-center">姓名</th>
+                                    <th width="25%" class="font-center">申请日期</th>
+                                    <th width="25%" class="font-center">单位</th>
+                                    <th width="25%" class="font-center">批准</th></tr>
+                                   <tr>
+                                    <th width="25%" class="font-center">详情</th>
+                                    <th width="25%" class="font-center">审核状态</th>
+                                    <th width="25%" class="font-center">科室</th>
+                                    <th width="25%" class="font-center">取消</th>
+                                </tr></table>
+                            {% for history in admin_historys %}
+                            <table width="100%" id="table-7" Name="table-7"  class="" border="1" cellspacing="1" cellpadding="4" bgcolor="#cccccc" align="center">
+                               
+                                <tr><td width="25%" class="font-center">{{history.user.name}}</td>
+                                    <td width="25%" class="font-center">{{history.apply_time}}</td>
+                                    <td width="25%" class="font-center">{{history.user.unit}}</td>
+                                    <td width="25%" class="font-center"><a href="#" onclick="allow({{history.id}})" id="allow">批准</a></td></tr>
+                               
+                                <tr>
+                                    
+                                    <td width="25%" class="font-center"><a href="#" onclick="changecss({{history.id}})">▼</a></td>
+                                    <td width="25%" class="font-center" id='{{history.id}}'>{{history.examine}}</td>
+                                    <td width="25%" class="font-center"> {{history.user.office}}</td>
+                                    <td width="25%" class="font-center">    <a href="#" onclick="cancel({{history.id}})" id="cancel">取消</a></td>
+                                </tr>
+                            </table>
 
-                    </table>
-                </br>
-            </div>
-            </div>
-            {% endfor %} 
+                            <div class="sr-only" id="hidden_css_{{history.id}}">
+                                   
+                                    
+                            <div class="col-md-11">
+                                    <table width="100%" id="table-7" border="1" cellspacing="1" cellpadding="4" bgcolor="#cccccc" align="center">
+                                    <tr>
+                                        <th width="33%" class="font-center">申请日期</th>
+                                        <th width="33%" class="font-center">激活码</th>
+                                        <th width="33%" class="font-center">SN号</th></tr>
+                                        <tr><th width="33%" class="font-center">审核状态</th>
+                                        <th width="33%" class="font-center">工作证</th>
+                                        <th width="33%" class="font-center">协议扫描件</th>
+                                    </tr></table>
+                                    {% for h in history.personal_history %}
+                                    <table width="100%" id="table-7" border="1" cellspacing="1" cellpadding="4" bgcolor="#cccccc" align="center">
+                                    <tr>
+                                        <td width="33%" class="font-center">{{h.apply_time}}</td>
+                                        <td width="33%" class="font-center">{{h.activation}}</td>
+                                        <td width="33%" class="font-center">{{h.SNnum}}</td></tr>
+                                        <tr> <td width="33%" class="font-center">{{h.examine}}</td>
+                                        <td width="33%" class="font-center"><a href={% static history.user_image.user_image_path %}>工作证链接</a></td>
+                                        <td width="33%" class="font-center"><a href={% static history.user_image.user_scanning_copy_path %}>协议扫描件链接</a></td>
+                                    </tr></table>
+                                    {% endfor %}
+                               
+                            </br>
+                            </div>
+                            
+                           
+                                 
+                              
+                            </div>
+                            {% endfor %} 
+                    
+                            
                             
            
                         </div>
@@ -138,8 +164,8 @@
                                         </header>
                                         <div class="body">
                                             <ul class="clean-list">
-                                                <li><a href="/">统计分析</a></li>
-                                                <li><a href="/">申请审核</a></li>
+                                                <li><a href="/statistics">统计分析</a></li>
+                                                <li><a href="/administrator">申请审核</a></li>
                                             </ul>
                                         </div>
                                     </div>

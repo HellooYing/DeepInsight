@@ -94,7 +94,7 @@ class UserChangeForm(forms.ModelForm):
 class HistoryForm(forms.ModelForm):
     class Meta:
         model = History
-        fields = ('id', 'apply_time', 'ratify_time', 'limit_time', 'activation', 'user', 'SNnum', 'examine', 'pass_or_not')
+        fields = ('id', 'apply_time', 'ratify_time', 'limit_time', 'user', 'SNnum', 'examine')
 
 
 class ChangePasswordForm(forms.Form):
